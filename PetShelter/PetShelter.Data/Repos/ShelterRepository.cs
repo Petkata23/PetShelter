@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 namespace PetShelter.Data.Repos
 {
     [AutoBind]
-    public class BreedsRepository : BaseRepository<Breed, BreedDto>, IBreedRepository
+    public class ShelterRepository : BaseRepository<Shelter, ShelterDto>, IShelterRepository
     {
-        public BreedsRepository(PetShelterDbContext context, IMapper mapper) : base(context, mapper)
+        public ShelterRepository(PetShelterDbContext context, IMapper mapper) : base(context, mapper)
         {
 
         }

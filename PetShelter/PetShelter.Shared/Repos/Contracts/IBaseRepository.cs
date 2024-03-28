@@ -19,8 +19,4 @@ namespace PetShelter.Shared.Repos.Contracts
         Task<IEnumerable<TModel>> GetWithPaginationAsync(int pageSize, int pageNumber);
     }
 
-    public interface IBreedRepository : IBaseRepository<BreedDto>
-    {
-
-    }
 }
