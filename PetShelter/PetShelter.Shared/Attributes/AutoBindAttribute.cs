@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PetShelter.Data.Entities
+namespace PetShelter.Shared.Attributes
 {
-    public abstract class BaseEntity
+    public class AutoBindAttribute : Attribute
     {
-        public int Id { get; set; }
     }
 }

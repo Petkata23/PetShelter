@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using PetShelter.Data.Entities;
+using PetShelter.Shared;
+using PetShelter.Shared.Security;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PetShelter.Data
 {
-    class PetShelterDbContext : DbContext
+    public class PetShelterDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Breed> Breeds { get; set; }
@@ -15,7 +19,7 @@ namespace PetShelter.Data
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Vaccine> Vaccines { get; set; }
         public DbSet<Location> Locations { get; set; }
-        public DbSet<PetType> Users { get; set; }
+        public DbSet<PetType> User { get; set; }
         public DbSet<PetVaccine> PetVaccines { get; set; }
 
         
@@ -51,9 +55,25 @@ namespace PetShelter.Data
                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Shelter>()
-                .HasMany(a => b.Location)
+                .HasOne(a => a.Location)
                 .WithOne(a => a.Shelter)
-                .HasForeignKey(c => c.BreedId);
+                .HasForeignKey<Location>(c => c.ShelterId);
+
+            foreach (var role in Enum.GetValues(typeof(UserRole)).Cast<UserRole>())
+            {
+                modelBuilder.Entity<Role>().HasData(new Role { Id = (int)role, Name = role.ToString() });
+            }
+
+            modelBuilder.Entity<User>()
+                .HasData(new User
+                {
+                    Id = 1,
+                    Username = "admin",
+                    RoleId = (int)UserRole.Admin,
+                    FirstName = "Admin",
+                    LastName = "User",
+                    Password = PasswordHasher.HashPassword("string")
+                });
 
         }
 
