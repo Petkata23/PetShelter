@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
 
-namespace PetShelter.Shared.Extension
+namespace PetShelter.Shared.Extensions
 {
     public static class ServiceCollectionExtensions
     {

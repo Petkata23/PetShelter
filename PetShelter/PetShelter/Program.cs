@@ -1,10 +1,22 @@
 using Microsoft.EntityFrameworkCore;
+using PetShelter;
 using PetShelter.Data;
+using PetShelter.Data.Repos;
+using PetShelter.Services.Services;
+using PetShelter.Shared.Extensions;
+using PetShelter.Shared.Security;
+using PetShelter.Shared.Security.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(m => m.AddProfile(new AutoMapperConfiguration()));
+builder.Services.AutoBind(typeof(PetsService).Assembly);
+builder.Services.AutoBind(typeof(PetRepository).Assembly);
+builder.Services.AddAutoMapper(m => m.AddProfile((new AutoMapperConfiguration())));
+
+IJwtSettings settings = builder.Configuration.GetSection(typeof(JwtSettings).Name).Get<JwtSettings>();
 
 builder.Services.AddDbContext<PetShelterDbContext>(options =>
 {
