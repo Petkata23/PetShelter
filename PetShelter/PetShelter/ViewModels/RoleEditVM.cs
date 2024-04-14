@@ -1,6 +1,10 @@
-﻿namespace PetShelter.ViewModels
+﻿using Microsoft.Build.Framework;
+
+namespace PetShelter.ViewModels
 {
-    public class RoleEditVM
+    public class RoleEditVM : BaseVM
     {
+        [Required]
+        public string Name { get; set; }
     }
 }

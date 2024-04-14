@@ -1,6 +1,16 @@
-﻿namespace PetShelter.ViewModels
+﻿using Microsoft.Build.Framework;
+
+namespace PetShelter.ViewModels
 {
-    public class ChangePasswordVM
+    public class ChangePasswordVM : BaseVM
     {
+        [Required]
+        public string Username { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+
+        [Required]
+        public string NewPassword { get; set; }
     }
 }
