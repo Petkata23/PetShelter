@@ -9,7 +9,7 @@ using PetShelter.Shared.Repos.Contracts;
 
 namespace PetShelter.Shared.Services.Contracts
 {
-    public interface IPetsService : IBaseCrudService<PetDto, IPetRepository>
+    public interface IPetTypeService : IBaseCrudService<PetDto, IPetRepository>
     {
     }
 }

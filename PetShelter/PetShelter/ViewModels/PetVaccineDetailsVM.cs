@@ -1,6 +1,6 @@
 ﻿namespace PetShelter.ViewModels
 {
-    public class PetVaccineDetailsVM
+    public class PetVaccineDetailsVM : BaseVM
     {
         public int PetId { get; set; }
         public PetDetailsVM Pet { get; set; }

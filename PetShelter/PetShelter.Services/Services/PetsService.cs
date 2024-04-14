@@ -11,7 +11,7 @@ using PetShelter.Shared.Services.Contracts;
 namespace PetShelter.Services.Services
 {
     [AutoBind]
-    public class PetsService : BaseCrudService<PetDto, IPetRepository>, IPetsService
+    public class PetsService : BaseCrudService<PetDto, IPetRepository>, IPetTypeService
     {
         public PetsService(IPetRepository repository) : base(repository)
         {
