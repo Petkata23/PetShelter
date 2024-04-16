@@ -32,6 +32,8 @@ namespace PetShelter.Data
         {
             base.OnConfiguring(optionsBuilder);
 
+            
+
             optionsBuilder.UseLazyLoadingProxies();
         }
 
