@@ -1,3 +1,4 @@
+using EntityFrameworkCore.UseRowNumberForPaging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -65,7 +66,7 @@ builder.Services.AddSingleton(settings);
 
 builder.Services.AddDbContext<PetShelterDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]);
+    options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"], i => i.UseRowNumberForPaging());
 });
 
 var app = builder.Build();
