@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -28,7 +29,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Breed" asp-action="List">Breeds</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Location" asp-action="List">Locations</a>
+                        </li>
                         
+                        @if (Context.User?.FindFirst(ClaimTypes.Role)?.Value == UserRole.Employee.ToString() ||
+                            Context.User?.FindFirst(ClaimTypes.Role)?.Value == UserRole.Admin.ToString())
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Breed" asp-action="List">Breeds</a>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>

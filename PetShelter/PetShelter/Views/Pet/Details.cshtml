@@ -1,0 +1,70 @@
+﻿@model PetShelter.ViewModels.PetDetailsVM
+
+@{ ViewBag.Title = "Details"; }
+
+<h2>Details</h2>
+<div>
+    <h4>Location</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAdopted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAdopted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsEuthanized)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsEuthanized)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PetType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PetType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Breed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Breed)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "List")
+</p>
