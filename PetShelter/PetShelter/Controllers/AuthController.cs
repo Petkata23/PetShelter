@@ -55,23 +55,44 @@ namespace PetShelter.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        public async Task LoginUser(string username)
+        public async Task<IActionResult> LoginUser(string username)
         {
+            // Retrieve the user by username
             var user = await this.usersService.GetByUsernameAsync(username);
-            var claims = new[]
+
+            // Check if the user exists
+            if (user != null)
             {
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, user.Role.Name),
-            };
+                // Create claims for the user
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.Username),
+                    // Check if the user has a role
+                    user.Role != null ? new Claim(ClaimTypes.Role, user.Role.Name) : null
+                };
 
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                // Create the identity for the user
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            var principal = new ClaimsPrincipal(identity);
+                // Create the principal
+                var principal = new ClaimsPrincipal(identity);
 
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                principal);
+                // Sign in the user
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    principal);
+
+                // Redirect the user to the home page
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+            else
+            {
+                // Handle the case where the user is not found
+                // For example, you could return a BadRequest response with an error message
+                return BadRequest(Constants.UserNotFound);
+            }
         }
+
 
         [HttpGet]
         public IActionResult Register()

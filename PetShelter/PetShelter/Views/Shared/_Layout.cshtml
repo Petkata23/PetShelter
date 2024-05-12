@@ -1,4 +1,6 @@
 ﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using PetShelter.Shared
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,27 +29,26 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Breed" asp-action="List">Breeds</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Location" asp-action="List">Locations</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Pet" asp-action="List">Pet</a>
+                        </li>
                         
-                        @if (Context.User?.FindFirst(ClaimTypes.Role)?.Value == UserRole.Employee.ToString() ||
-                            Context.User?.FindFirst(ClaimTypes.Role)?.Value == UserRole.Admin.ToString())
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Breed" asp-action="List">Breeds</a>
-                            </li>
-                        }
+                        
 
                     </ul>
+                    
+                    <div style="margin-right: 10px;">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
+                    </div>
+                    
+                    <div style="margin-right: 30px;">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Register">Register</a>
+                    </div>
                 </div>
             </div>
-            
-            <div style="position: fixed; top: 10px; right: 10px;">
-                <a href="C:\Users\GRIGS\Documents\PetShelter\PetShelter\PetShelter\Views\Login" class="btn btn-primary">Login</a>
-            </div>
+
         </nav>
     </header>
     <div class="container">

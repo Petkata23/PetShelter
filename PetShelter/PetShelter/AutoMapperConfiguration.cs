@@ -37,6 +37,7 @@ namespace PetShelter
             CreateMap<VaccineDto, VaccineDetailsVM>().ReverseMap();
             CreateMap<ChangePasswordDto, ChangePasswordVM>().ReverseMap();
             CreateMap<LoginDto, LoginVM>().ReverseMap();
+            CreateMap<RegisterVM, UserDto>();
         }
     }
 }

@@ -12,6 +12,7 @@ using PetShelter.Shared.Security.Contracts;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using PetShelter.Shared.Services.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,8 @@ builder.Services.AddAutoMapper(m => m.AddProfile(new AutoMapperConfiguration()))
 builder.Services.AutoBind(typeof(PetsService).Assembly);
 builder.Services.AutoBind(typeof(PetRepository).Assembly);
 builder.Services.AddAutoMapper(m => m.AddProfile((new AutoMapperConfiguration())));
+builder.Services.AddScoped<IUsersService, UsersService>();
+
 
 IJwtSettings settings = builder.Configuration.GetSection(typeof(JwtSettings).Name).Get<JwtSettings>();
 
