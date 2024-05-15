@@ -23,6 +23,7 @@ builder.Services.AutoBind(typeof(PetsService).Assembly);
 builder.Services.AutoBind(typeof(PetRepository).Assembly);
 builder.Services.AddAutoMapper(m => m.AddProfile((new AutoMapperConfiguration())));
 builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<ISheltersService, SheltersService>();
 
 
 IJwtSettings settings = builder.Configuration.GetSection(typeof(JwtSettings).Name).Get<JwtSettings>();

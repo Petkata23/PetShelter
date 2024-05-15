@@ -53,9 +53,9 @@ namespace PetShelter.Data.Repos
         public async Task<TModel> GetByIdAsync(int id)
         {
             var user = await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
-            if ( user == null) 
+            if (user == null)
             {
-                throw new ArgumentNullException(nameof(user));
+                return null;
             }
             return this.MapToModel(user);
         }
