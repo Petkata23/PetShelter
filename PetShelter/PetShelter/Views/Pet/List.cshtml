@@ -18,7 +18,10 @@
             @Html.DisplayNameFor(model => model.Color)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Adopters)
+            @Html.DisplayNameFor(model => model.IsAdopted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsEuthanized)
         </th>
         <th>Actions</th>
     </tr>
@@ -35,7 +38,10 @@
                 @Html.DisplayFor(modelItem => item.Color)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Adopters.Count)
+                @Html.DisplayFor(modelItem => item.IsAdopted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsEuthanized)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
