@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace PetShelter.Views.Breed
 {
-    public class CreateBreeModel : PageModel
+    public class CreateBreeedModel : PageModel
     {
         public void OnGet()
         {

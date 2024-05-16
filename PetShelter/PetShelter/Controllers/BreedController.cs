@@ -8,7 +8,7 @@ using PetShelter.ViewModels;
 
 namespace PetShelter.Controllers
 {
-    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme, Roles = "Admin, Employee")]
+    
     public class BreedController : BaseCrudController<BreedDto, IBreedRepository, IBreedsService, BreedEditVM, BreedDetailsVM>
     {
         public BreedController(IBreedsService service, IMapper mapper) : base(service, mapper)

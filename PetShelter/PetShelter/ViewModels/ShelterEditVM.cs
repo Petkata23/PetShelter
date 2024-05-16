@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
+using System.ComponentModel;
 
 namespace PetShelter.ViewModels
 {
@@ -7,10 +8,12 @@ namespace PetShelter.ViewModels
     {
         [Required]
         public int PetCapacity { get; set; }
+
         [Required]
+        [DisplayName("Location")]
+
         public int LocationId { get; set; }
-        [Required]
-        public LocationDetailsVM Location { get; set; }
-        public IEnumerable<SelectListItem> LocationsList { get; internal set; }
+
+        public IEnumerable<SelectListItem> LocationsList { get; set; }
     }
 }
