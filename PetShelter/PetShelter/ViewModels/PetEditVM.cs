@@ -21,7 +21,7 @@ namespace PetShelter.ViewModels
         public bool IsEuthanized { get; set; }
 
         [Required]
-        public int PetTypeId { get; set; }
+        public IEnumerable<SelectListItem> PetTypeId { get; set; }
 
         public IEnumerable<SelectListItem> PetTypeList { get; set; }
 

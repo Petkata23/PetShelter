@@ -40,7 +40,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PetTypeId, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.PetTypeId, Model.PetTypeList, "Choose a location...",
+                @Html.DropDownListFor(model => model.PetTypeId, Model.PetTypeList, "Choose a Pet Type...", 
                          new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PetTypeId)
             </div>
@@ -49,7 +49,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BreedId, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.BreedId, Model.BreedList, "Choose a location...",
+                @Html.DropDownListFor(model => model.BreedId, Model.BreedList, "Choose a Breed...",
                          new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.BreedId)
             </div>

@@ -13,9 +13,16 @@ namespace PetShelter.Services.Services
     [AutoBind]
     public  class PetTypesService : BaseCrudService<PetTypeDto, IPetTypeRepository>, IPetTypesService
     {
+        private readonly IPetTypeRepository _petTypeRepository;
+
         public PetTypesService(IPetTypeRepository repository) : base(repository)
         {
+            _petTypeRepository = repository;
+        }
 
+        public async Task<IEnumerable<PetTypeDto>> GetAllActiveAsync()
+        {
+            return await _petTypeRepository.GetActivePetTypesAsync();
         }
     }
 }
