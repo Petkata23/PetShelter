@@ -17,5 +17,12 @@ namespace PetShelter.Services.Services
         {
 
         }
+
+        public async Task<IEnumerable<BreedDto>> GetAllActiveAsync()
+        {
+            
+            return await _repository.GetAllAsync();
+            
+        }
     }
 }

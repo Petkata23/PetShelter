@@ -17,5 +17,10 @@ namespace PetShelter.Services.Services
         {
 
         }
+
+        public async Task<IEnumerable<PetDto>> GetAllActiveAsync()
+        {
+            return await _repository.GetAllAsync();
+        }
     }
 }

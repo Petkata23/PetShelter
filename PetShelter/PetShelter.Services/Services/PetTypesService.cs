@@ -22,7 +22,7 @@ namespace PetShelter.Services.Services
 
         public async Task<IEnumerable<PetTypeDto>> GetAllActiveAsync()
         {
-            return await _petTypeRepository.GetActivePetTypesAsync();
+            return await _repository.GetAllAsync();
         }
     }
 }
