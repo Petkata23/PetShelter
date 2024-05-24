@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PetShelter.Services.Services;
 using PetShelter.Shared.Dtos;
@@ -13,7 +12,8 @@ namespace PetShelter.Controllers
     {
         private readonly ILocationsService _locationsService;
 
-        public ShelterController(ISheltersService service, ILocationsService locationsService, IMapper mapper) : base(service, mapper)
+        public ShelterController(ISheltersService service, ILocationsService locationsService, IMapper mapper)
+            : base(service, mapper)
         {
             _locationsService = locationsService;
         }

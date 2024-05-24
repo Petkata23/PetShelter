@@ -1,4 +1,4 @@
-﻿@model PetShelter.ViewModels.VaccineEditVM
+@model PetShelter.ViewModels.VaccineEditVM
 
 @{
     ViewBag.Title = "Edit";
@@ -10,7 +10,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Shelter</h4>
+        <h4>Vaccine</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
@@ -39,7 +39,6 @@
             </div>
         </div>
 
-
         <div class="form-group">
             <div class="col-md-offset-2 cold-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -50,4 +49,3 @@
 <div>
     @Html.ActionLink("Back to List", "List")
 </div>
-

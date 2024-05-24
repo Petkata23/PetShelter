@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
 
 namespace PetShelter.ViewModels
@@ -21,7 +21,7 @@ namespace PetShelter.ViewModels
         public bool IsEuthanized { get; set; }
 
         [Required]
-        public IEnumerable<SelectListItem> PetTypeId { get; set; }
+        public int PetTypeId { get; set; }
 
         public IEnumerable<SelectListItem> PetTypeList { get; set; }
 

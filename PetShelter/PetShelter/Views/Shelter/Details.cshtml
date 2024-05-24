@@ -1,11 +1,11 @@
-﻿@model PetShelter.ViewModels.ShelterDetailsVM
+@model PetShelter.ViewModels.ShelterDetailsVM
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Details";
 }
 
-<h2>Delete</h2>
-<h3>Are you sure you want to delete this?</h3>
+<h2>Details</h2>
+
 <div>
     <h4>Shelter</h4>
     <hr />
@@ -13,7 +13,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.PetCapacity)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.PetCapacity)
         </dd>
@@ -21,7 +20,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.Pets)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Pets.Count)
         </dd>
@@ -29,15 +27,13 @@
         <dt>
             @Html.DisplayNameFor(model => model.LocationId)
         </dt>
-
         <dd>
             @Html.ActionLink("Location Details", "Details", "Location", new { id = Model.LocationId })
         </dd>
-
     </dl>
 </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Bacl to List", "List")
+    @Html.ActionLink("Back to List", "List")
 </p>
-

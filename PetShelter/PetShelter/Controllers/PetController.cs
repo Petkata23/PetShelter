@@ -1,37 +1,29 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Build.Framework;
-using PetShelter.Services.Services;
-using PetShelter.Shared.Dtos;
-using PetShelter.Shared.Repos.Contracts;
-using PetShelter.Shared.Services.Contracts;
-using PetShelter.ViewModels;
-
-namespace PetShelter.Controllers
+public class PetController : BaseCrudController<PetDto, IPetRepository, IPetsService, PetEditVM, PetDetailsVM>
 {
-    public class PetController : BaseCrudController<PetDto, IPetRepository, IPetTypeService, PetEditVM, PetDetailsVM>
+    private readonly IPetTypesService _petTypeService; 
+    private readonly IBreedsService _breedService;
+    private readonly ISheltersService _shelterService;
+
+    public PetController(IPetsService service, IBreedsService breedsService, IPetTypesService petTypeService, ISheltersService shelterService, IMapper mapper)
+        : base(service, mapper)
     {
-        private readonly IPetTypeService _petTypeService;
-        private readonly IBreedsService _breedService;
+        _petTypeService = petTypeService; 
+        _breedService = breedsService;
+        _shelterService = shelterService;
+    }
 
-        public PetController(IPetTypeService service, IBreedsService breedsService, IMapper mapper) : base(service, mapper)
+    protected override async Task<PetEditVM> PrePopulateVMAsync()
+    {
+        var editVM = new PetEditVM
         {
-            _petTypeService = service;
-            _breedService = breedsService;
-        }
+            PetTypeList = (await _petTypeService.GetAllActiveAsync())
+                .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString())),
+            BreedList = (await _breedService.GetAllActiveAsync())
+                .Select(x => new SelectListItem($"{x.Name}, {x.Size}", x.Id.ToString())),
+            ShelterList = (await _shelterService.GetAllActiveAsync())
+                .Select(x => new SelectListItem($"{x.PetCapacity}, {x.LocationId}", x.Id.ToString()))
+        };
 
-        protected override async Task<PetEditVM> PrePopulateVMAsync()
-        {
-            var editVM = new PetEditVM
-            {
-                PetTypeList = (await _petTypeService.GetAllActiveAsync())
-                    .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString())), 
-                BreedList = (await _breedService.GetAllActiveAsync())
-                    .Select(x => new SelectListItem($"{x.Name}, {x.Size}", x.Id.ToString())),
-
-            };
-
-            return editVM;
-        }
+        return editVM;
     }
 }
