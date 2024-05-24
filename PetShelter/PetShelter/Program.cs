@@ -20,6 +20,16 @@ builder.Services.AddAutoMapper(m => m.AddProfile(new AutoMapperConfiguration()))
 builder.Services.AutoBind(typeof(PetsService).Assembly);
 builder.Services.AutoBind(typeof(PetRepository).Assembly);
 builder.Services.AddAutoMapper(m => m.AddProfile((new AutoMapperConfiguration())));
+<<<<<<< Updated upstream
+=======
+builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<ISheltersService, SheltersService>();
+builder.Services.AddScoped<IVaccinesService, VaccinesService>();
+builder.Services.AddScoped<IPetVaccinesService, PetVaccinesService>();
+
+
+
+>>>>>>> Stashed changes
 
 IJwtSettings settings = builder.Configuration.GetSection(typeof(JwtSettings).Name).Get<JwtSettings>();
 

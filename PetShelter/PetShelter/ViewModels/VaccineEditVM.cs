@@ -9,5 +9,12 @@ namespace PetShelter.ViewModels
         
         [Required]
         public string Description { get; set; }
+<<<<<<< Updated upstream
+=======
+
+        public IEnumerable<SelectListItem> PetTypeVaccineId { get; set; }
+
+        public IEnumerable<SelectListItem> PetVaccinesTypeList { get; set; }
+>>>>>>> Stashed changes
     }
 }

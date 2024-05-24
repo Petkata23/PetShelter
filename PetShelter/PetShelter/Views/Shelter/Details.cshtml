@@ -1,0 +1,42 @@
+﻿@model PetShelter.ViewModels.ShelterDetailsVM
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<div>
+    <h4>Shelter</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PetCapacity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PetCapacity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pets)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pets.Count)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationId)
+        </dt>
+
+        <dd>
+            @Html.ActionLink("Location Details", "Details", "Location", new { id = Model.LocationId })
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "List")
+</p>
+
