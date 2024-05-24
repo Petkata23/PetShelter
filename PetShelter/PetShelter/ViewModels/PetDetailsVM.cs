@@ -19,6 +19,7 @@
         public PetTypeDetailsVM PetType { get; set; }
         public int BreedId { get; set; }
         public BreedDetailsVM Breed { get; set; }
+        public VaccineDetailsVM Vaccine { get; set; }
         public List<UserDetailsVM> Adopters { get; set; }
         public List<UserDetailsVM> Givers { get; set; }
         public List<ShelterDetailsVM> Shelters { get; set; }

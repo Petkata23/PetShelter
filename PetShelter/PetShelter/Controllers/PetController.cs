@@ -11,13 +11,15 @@ public class PetController : BaseCrudController<PetDto, IPetRepository, IPetsSer
     private readonly IPetTypesService _petTypeService; 
     private readonly IBreedsService _breedService;
     private readonly ISheltersService _shelterService;
+    private readonly IVaccinesService _vaccineService;
 
-    public PetController(IPetsService service, IBreedsService breedsService, IPetTypesService petTypeService, ISheltersService shelterService, IMapper mapper)
+    public PetController(IPetsService service, IBreedsService breedsService, IPetTypesService petTypeService, ISheltersService shelterService, IVaccinesService vaccineService, IMapper mapper)
         : base(service, mapper)
     {
         _petTypeService = petTypeService; 
         _breedService = breedsService;
         _shelterService = shelterService;
+        _vaccineService = vaccineService;
     }
 
     protected override async Task<PetEditVM> PrePopulateVMAsync()
@@ -29,7 +31,9 @@ public class PetController : BaseCrudController<PetDto, IPetRepository, IPetsSer
             BreedList = (await _breedService.GetAllActiveAsync())
                 .Select(x => new SelectListItem($"{x.Name}, {x.Size}", x.Id.ToString())),
             ShelterList = (await _shelterService.GetAllActiveAsync())
-                .Select(x => new SelectListItem($"{x.PetCapacity}, {x.LocationId}", x.Id.ToString()))
+                .Select(x => new SelectListItem($"{x.PetCapacity}, {x.LocationId}", x.Id.ToString())),
+            VaccineList = (await _vaccineService.GetAllActiveAsync())
+                .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString()))
         };
 
         return editVM;
