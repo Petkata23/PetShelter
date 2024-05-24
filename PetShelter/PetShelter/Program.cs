@@ -26,6 +26,7 @@ builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<ISheltersService, SheltersService>();
 builder.Services.AddScoped<IVaccinesService, VaccinesService>();
 builder.Services.AddScoped<IPetVaccinesService, PetVaccinesService>();
+builder.Services.AddScoped<IPetsService, PetsService>();
 
 IJwtSettings settings = builder.Configuration.GetSection(typeof(JwtSettings).Name).Get<JwtSettings>();
 

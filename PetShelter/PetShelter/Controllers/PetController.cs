@@ -1,3 +1,11 @@
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using PetShelter.Controllers;
+using PetShelter.Shared.Dtos;
+using PetShelter.Shared.Repos.Contracts;
+using PetShelter.Shared.Services.Contracts;
+using PetShelter.ViewModels;
+
 public class PetController : BaseCrudController<PetDto, IPetRepository, IPetsService, PetEditVM, PetDetailsVM>
 {
     private readonly IPetTypesService _petTypeService; 

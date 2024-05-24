@@ -39,5 +39,8 @@ namespace PetShelter.ViewModels
         public UserDetailsVM Giver { get; set; }
 
         public ShelterDetailsVM Shelter { get; set; }
+
+        public int ShelterId { get; set; }
+        public IEnumerable<SelectListItem> ShelterList { get; set; }
     }
 }
