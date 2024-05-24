@@ -11,5 +11,6 @@ namespace PetShelter.Shared.Services.Contracts
 {
     public interface IBreedsService : IBaseCrudService<BreedDto, IBreedRepository>
     {
+        Task<IEnumerable<BreedDto>> GetAllActiveAsync();
     }
 }

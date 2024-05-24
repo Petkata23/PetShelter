@@ -1,4 +1,4 @@
-﻿@using PetShelter.Controllers
+@using PetShelter.Controllers
 @using PetShelter.Shared.Extensions
 @model PetShelter.ViewModels.PetEditVM
 
@@ -21,21 +21,7 @@
             </div>            
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Age, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Age)
-                @Html.ValidationMessageFor(model => model.Age)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Color, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Color)
-                @Html.ValidationMessageFor(model => model.Color)
-            </div>
-        </div>
+        <!-- Other form fields -->
 
         <div class="form-group">
             @Html.LabelFor(model => model.PetTypeId, new { @class = "control-label col-md-2" })
@@ -46,6 +32,7 @@
             </div>
         </div>
 
+        <!-- ShelterId Dropdown -->
         <div class="form-group">
             @Html.LabelFor(model => model.ShelterId, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -55,30 +42,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.BreedId, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.BreedId, Model.BreedList, "Choose a Breed...",
-                         new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BreedId)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsAdopted, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IsAdopted)
-                @Html.ValidationMessageFor(model => model.IsAdopted)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsEuthanized, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IsEuthanized)
-                @Html.ValidationMessageFor(model => model.IsEuthanized)
-            </div>
-        </div>
+        <!-- Other form fields -->
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

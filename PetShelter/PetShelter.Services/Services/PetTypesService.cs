@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using PetShelter.Shared.Attributes;
 using PetShelter.Shared.Dtos;
@@ -10,18 +10,16 @@ namespace PetShelter.Services.Services
     [AutoBind]
     public class PetTypesService : BaseCrudService<PetTypeDto, IPetTypeRepository>, IPetTypesService
     {
-<<<<<<< Updated upstream
-        public PetTypesService(IPetTypeRepository repository) : base(repository)
-        {
-=======
-        
+        private readonly IPetTypeRepository _petTypeRepository;
 
         public PetTypesService(IPetTypeRepository repository) : base(repository)
         {
-            
+            _petTypeRepository = repository;
         }
->>>>>>> Stashed changes
 
+        public async Task<IEnumerable<PetTypeDto>> GetAllActiveAsync()
+        {
+            return await _repository.GetAllAsync();
         }
     }
 }

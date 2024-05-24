@@ -18,5 +18,23 @@ namespace PetShelter.Data.Repos
         {
 
         }
+
+        private readonly List<UserDto> users = new List<UserDto>
+        {
+            new UserDto { Username = "user1", Password = "password1" },
+            new UserDto { Username = "user2", Password = "password2" }
+            // Add more users as needed
+        };
+
+        public async Task<UserDto> GetByUsernameAsync(string username)
+        {
+            return await Task.FromResult(users.FirstOrDefault(u => u.Username == username));
+        }
+
+        public async Task<UserDto> GetUserByUsernameAsync(string username)
+        {
+            return await Task.FromResult(users.FirstOrDefault(u => u.Username == username));
+        }
     }
+
 }

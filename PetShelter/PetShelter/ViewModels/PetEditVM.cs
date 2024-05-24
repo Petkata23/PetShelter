@@ -1,4 +1,5 @@
-﻿using Microsoft.Build.Framework;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Build.Framework;
 
 namespace PetShelter.ViewModels
 {
@@ -21,27 +22,16 @@ namespace PetShelter.ViewModels
 
         [Required]
         public int PetTypeId { get; set; }
-<<<<<<< Updated upstream
-=======
 
         public IEnumerable<SelectListItem> PetTypeList { get; set; }
->>>>>>> Stashed changes
 
         public PetTypeDetailsVM PetType { get; set; }
 
         [Required]
         public int BreedId { get; set; }
 
-<<<<<<< Updated upstream
-=======
-        [Required]
-        public int ShelterId { get; set; }
-
         public IEnumerable<SelectListItem> BreedList { get; set; }
 
-        public IEnumerable<SelectListItem> ShelterList { get; set; }
-
->>>>>>> Stashed changes
         public BreedDetailsVM Breed { get; set; }
 
         public UserDetailsVM Adopter { get; set; }

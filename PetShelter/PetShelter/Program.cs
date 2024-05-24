@@ -11,6 +11,8 @@ using PetShelter.Shared.Security;
 using PetShelter.Shared.Security.Contracts;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using PetShelter.Shared.Services.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,58 +21,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(m => m.AddProfile(new AutoMapperConfiguration()));
 builder.Services.AutoBind(typeof(PetsService).Assembly);
 builder.Services.AutoBind(typeof(PetRepository).Assembly);
-builder.Services.AddAutoMapper(m => m.AddProfile((new AutoMapperConfiguration())));
-<<<<<<< Updated upstream
-=======
+builder.Services.AddAutoMapper(m => m.AddProfile(new AutoMapperConfiguration()));
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<ISheltersService, SheltersService>();
 builder.Services.AddScoped<IVaccinesService, VaccinesService>();
 builder.Services.AddScoped<IPetVaccinesService, PetVaccinesService>();
 
-
-
->>>>>>> Stashed changes
-
 IJwtSettings settings = builder.Configuration.GetSection(typeof(JwtSettings).Name).Get<JwtSettings>();
 
-builder.Services.AddAuthentication(cfg => cfg.DefaultScheme = JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    if (options.SecurityTokenValidators.FirstOrDefault() is JwtSecurityTokenHandler jwtSecurityTokenHandler)
-                    {
-                        jwtSecurityTokenHandler.MapInboundClaims = false;
-                    }
-                    options.RequireHttpsMetadata = false;
-                    options.SaveToken = true;
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = settings.Issuer,
-                        ValidAudience = settings.Audience,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.Key)),
-                        NameClaimType = JwtRegisteredClaimNames.Sub
-                    };
-                    options.Events = new JwtBearerEvents
-                    {
-                        OnMessageReceived = context =>
-                        {
-                            var accessToken = context.Request.Query["access_token"];
-
-                            // If the request is for our hub...
-                            var path = context.HttpContext.Request.Path;
-                            if (!string.IsNullOrEmpty(accessToken) &&
-                                (path.StartsWithSegments("/chathub")))
-                            {
-                                // Read the token out of the query string
-                                context.Token = accessToken;
-                            }
-                            return Task.CompletedTask;
-                        }
-                    };
-                });
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie();
 
 builder.Services.AddSingleton(settings);
 

@@ -18,5 +18,18 @@ namespace PetShelter.Data.Repos
         {
 
         }
+
+        private readonly List<RoleDto> roles = new List<RoleDto>
+        {
+            new RoleDto { Id = 1, Name = "Admin" },
+            new RoleDto { Id = 2, Name = "User" }
+            // Add more roles as needed
+        };
+
+        public async Task<RoleDto> GetByNameIfExistsAsync(string roleName)
+        {
+            return await Task.FromResult(roles.FirstOrDefault(r => r.Name == roleName));
+        }
     }
 }
+

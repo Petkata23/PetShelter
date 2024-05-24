@@ -11,5 +11,6 @@
         public int? ShelterId { get; set; }
 
         public ShelterDto Shelter { get; set; }
+        public bool IsActive { get; set; }
     }
 }

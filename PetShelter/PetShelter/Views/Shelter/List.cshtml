@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PetShelter.ViewModels.ShelterDetailsVM>
+@model IEnumerable<PetShelter.ViewModels.ShelterDetailsVM>
 
 @{
     ViewBag.Title = "List";
@@ -16,9 +16,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Pets)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location)
-        </th>
         <th>Actions</th>
     </tr>
     @foreach (var item in Model)
@@ -31,14 +28,10 @@
                 @Html.DisplayFor(modelItem => item.Pets.Count)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }
-
 </table>

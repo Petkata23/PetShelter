@@ -6,8 +6,8 @@ namespace PetShelter.ViewModels
     {
         public ShelterDetailsVM()
         {
-            Pets = new List<PetDetailsVM>();
-            Employees = new List<UserDetailsVM>();
+            this.Pets = new List<PetDetailsVM>();
+            this.Employees = new List<UserDetailsVM>();
         }
         
         [Required]
@@ -18,8 +18,8 @@ namespace PetShelter.ViewModels
 
         public LocationDetailsVM Location { get; set; }
 
-        public ICollection<UserDetailsVM> Employees { get; set; }
+        public List<UserDetailsVM> Employees { get; set; }
 
-        public ICollection<PetDetailsVM> Pets { get; set; }
+        public List<PetDetailsVM> Pets { get; set; }
     }
 }

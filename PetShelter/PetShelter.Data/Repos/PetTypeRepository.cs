@@ -18,5 +18,10 @@ namespace PetShelter.Data.Repos
         {
 
         }
+
+        public async Task<IEnumerable<PetTypeDto>> GetActivePetTypesAsync()
+        {
+            return await Task.FromResult(new List<PetTypeDto>());
+        }
     }
 }
