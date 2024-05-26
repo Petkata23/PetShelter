@@ -1,11 +1,20 @@
-﻿namespace PetShelter.ViewModels
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace PetShelter.ViewModels
 {
     public class PetVaccineDetailsVM : BaseVM
     {
-        public int PetId { get; set; }
-        public string PetName { get; set; } 
         public int VaccineId { get; set; }
-        public string VaccineName { get; set; } 
-        public string VaccineDescription { get; set; }
+
+        public int PetId { get; set; }
+
+        public IEnumerable<SelectListItem> VaccineList { get; set; }
+
+        public IEnumerable<SelectListItem> PetList { get; set; }
+
+        public VaccineDetailsVM Vaccine { get; set; }
+
+        public PetDetailsVM Pet { get; set; }
+
     }
 }

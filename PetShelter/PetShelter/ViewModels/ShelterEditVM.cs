@@ -11,7 +11,6 @@ namespace PetShelter.ViewModels
 
         [Required]
         [DisplayName("Location")]
-
         public int LocationId { get; set; }
 
         public IEnumerable<SelectListItem> LocationsList { get; set; }
