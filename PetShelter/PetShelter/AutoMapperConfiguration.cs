@@ -24,6 +24,7 @@ namespace PetShelter
             CreateMap<PetVaccine, PetVaccineDto>().ReverseMap();
             CreateMap<PetVaccineDto, PetVaccineDetailsVM>().ReverseMap();
             CreateMap<PetVaccineTypeEditVM, PetVaccineDto>();
+            CreateMap<PetVaccineDto, PetVaccineTypeEditVM>();
             CreateMap<Role, RoleDto>().ReverseMap();
             CreateMap<RoleDto, RoleEditVM>().ReverseMap();
             CreateMap<RoleDto, RoleDetailsVM>().ReverseMap();

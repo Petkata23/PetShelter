@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using PetShelter.Services.Services;
 using PetShelter.Shared.Dtos;
 using PetShelter.Shared.Repos.Contracts;
 using PetShelter.Shared.Services.Contracts;
@@ -8,9 +10,26 @@ namespace PetShelter.Controllers
 {
     public class PetVaccineController : BaseCrudController<PetVaccineDto, IPetVaccineRepository, IPetVaccinesService, PetVaccineTypeEditVM, PetVaccineDetailsVM>
     {
-        public PetVaccineController(IPetVaccinesService service, IMapper mapper) : base(service, mapper) 
-        {
+        private readonly IPetsService _petService;
+        private readonly IVaccinesService _vaccineService;
 
+        public PetVaccineController(IPetVaccinesService service, IPetsService petService, IVaccinesService vaccineService, IMapper mapper) : base(service, mapper) 
+        {
+            _petService = petService;
+            _vaccineService = vaccineService;
+        }
+
+        protected override async Task<PetVaccineTypeEditVM> PrePopulateVMAsync()
+        {
+            var editVM = new PetVaccineTypeEditVM
+            {
+                PetList = (await _petService.GetAllActiveAsync())
+                    .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString())),
+                VaccineList = (await _vaccineService.GetAllActiveAsync())
+                    .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString()))
+            };
+
+            return editVM;
         }
     }
 }
