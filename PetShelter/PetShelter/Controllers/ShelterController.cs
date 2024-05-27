@@ -20,6 +20,7 @@ namespace PetShelter.Controllers
 
         protected override async Task<ShelterEditVM> PrePopulateVMAsync()
         {
+            var locations = await _locationsService.GetAllActiveAsync();
             var editVM = new ShelterEditVM
             {
                 LocationsList = (await _locationsService.GetAllActiveAsync())
