@@ -19,18 +19,18 @@ namespace PetShelter.Controllers
             _shelterService = shelterService;
         }
 
-        protected override async Task<UserEditVM> PrePopulateVMAsync()
-        {
-            var editVM = new UserEditVM
-            {
+        //protected override async Task<UserEditVM> PrePopulateVMAsync()
+        //{
+        //    var editVM = new UserEditVM
+        //    {
                 
-                ShelterList = (await _shelterService.GetAllActiveAsync())
-                    .Select(x => new SelectListItem($"{x.PetCapacity}, {x.LocationId}", x.Id.ToString())),
-                RoleList = (await _roleService.GetAllAsync())
-                    .Select(x => new SelectListItem(x.Name, x.Id.ToString())),
-            };
+        //        ShelterList = (await _shelterService.GetAllActiveAsync())
+        //            .Select(x => new SelectListItem($"{x.PetCapacity}, {x.LocationId}", x.Id.ToString())),
+        //        RoleList = (await _roleService.GetAllAsync())
+        //            .Select(x => new SelectListItem(x.Name, x.Id.ToString())),
+        //    };
 
-            return editVM;
-        }
+        //    return editVM;
+        //}
     }
 }

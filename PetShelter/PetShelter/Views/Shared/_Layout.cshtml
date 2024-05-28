@@ -26,9 +26,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <!-- Other navigation links -->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Shelter" asp-action="List">Shelter</a>
-                        </li>
+                        @if (Context.User?.FindFirst(ClaimTypes.Role)?.Value == UserRole.Employee.ToString() ||
+                            Context.User?.FindFirst(ClaimTypes.Role)?.Value == UserRole.Admin.ToString())
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Shelter" asp-action="List">Shelter</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Breed" asp-action="List">Breed</a>
                         </li>
