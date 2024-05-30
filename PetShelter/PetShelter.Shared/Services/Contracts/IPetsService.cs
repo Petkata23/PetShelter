@@ -12,5 +12,7 @@ namespace PetShelter.Shared.Services.Contracts
     public interface IPetsService : IBaseCrudService<PetDto, IPetRepository>
     {
         Task<IEnumerable<PetDto>> GetAllActiveAsync();
+        Task GivePetAsync(int userId, int shelterId, PetDto pet);
+        Task AdoptPetAsync(int userId, int petId);
     }
 }

@@ -13,18 +13,18 @@ using PetShelter.Shared.Dtos;
 
 namespace PetShelter.Tests.Repos
 {
-    public abstract class BaseRepositoryTests<TRepository, T, TModel>
-        where TRepository : BaseRepository<T, TModel>
-        where T : class, IBaseEntity
-        where TModel : BaseModel
-    {
-        private Mock<PetShelterDbContext> mockContext;
-        private Mock<DbSet<T>> mockDbSet;
-        private Mock<IMapper> mockMapper;
-        private TRepository repository;
+    //public abstract class BaseRepositoryTests<TRepository, T, TModel>
+    //    where TRepository : BaseRepository<T, TModel>
+    //    where T : class, IBaseEntity
+    //    where TModel : BaseModel
+    //{
+    //    private Mock<PetShelterDbContext> mockContext;
+    //    private Mock<DbSet<T>> mockDbSet;
+    //    private Mock<IMapper> mockMapper;
+    //    private TRepository repository;
 
        
 
-    }
+    //}
 
 }
