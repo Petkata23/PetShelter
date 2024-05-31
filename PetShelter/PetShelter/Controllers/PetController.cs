@@ -26,9 +26,9 @@ public class PetController : BaseCrudController<PetDto, IPetRepository, IPetsSer
         _petsService = service;
     }
 
-    protected override async Task<PetEditVM> PrePopulateVMAsync()
+    protected override async Task<PetEditVM> PrePopulateVMAsync(PetEditVM editVM)
     {
-        var editVM = new PetEditVM
+        new PetEditVM
         {
             PetTypeList = (await _petTypeService.GetAllActiveAsync())
                 .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString())),
@@ -42,6 +42,7 @@ public class PetController : BaseCrudController<PetDto, IPetRepository, IPetsSer
 
         return editVM;
     }
+
 
     [HttpPost]
     public async Task<IActionResult> CreatePet(int userId, int shelterId, [FromBody] PetDto petDto)

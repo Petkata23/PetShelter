@@ -19,15 +19,14 @@ namespace PetShelter.Controllers
             _vaccineService = vaccineService;
         }
 
-        protected override async Task<PetVaccineTypeEditVM> PrePopulateVMAsync()
+        protected override async Task<PetVaccineTypeEditVM> PrePopulateVMAsync(PetVaccineTypeEditVM editVM)
         {
-            var editVM = new PetVaccineTypeEditVM
-            {
-                PetList = (await _petService.GetAllActiveAsync())
-                    .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString())),
-                VaccineList = (await _vaccineService.GetAllActiveAsync())
-                    .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString()))
-            };
+
+            editVM.PetList = (await _petService.GetAllActiveAsync())
+                .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString()));
+            editVM.VaccineList = (await _vaccineService.GetAllActiveAsync())
+                .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString()));
+            
 
             return editVM;
         }

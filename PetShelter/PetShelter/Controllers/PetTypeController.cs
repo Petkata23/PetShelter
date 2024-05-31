@@ -19,9 +19,9 @@ namespace PetShelter.Controllers
             _petTypeService = service;
         }
 
-        protected override async Task<PetTypeEditVM> PrePopulateVMAsync()
+        protected override async Task<PetTypeEditVM> PrePopulateVMAsync(PetTypeEditVM editVM)
         {
-            var editVM = new PetTypeEditVM
+            new PetTypeEditVM
             {
                 PetTypeList = (await _petTypeService.GetAllActiveAsync())
                     .Select(x => new SelectListItem(x.Name, x.Id.ToString()))

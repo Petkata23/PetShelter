@@ -18,14 +18,10 @@ namespace PetShelter.Controllers
             _locationsService = locationsService;
         }
 
-        protected override async Task<ShelterEditVM> PrePopulateVMAsync()
+        protected override async Task<ShelterEditVM> PrePopulateVMAsync(ShelterEditVM editVM)
         {
-            var locations = await _locationsService.GetAllActiveAsync();
-            var editVM = new ShelterEditVM
-            {
-                LocationsList = (await _locationsService.GetAllActiveAsync())
-                    .Select(x => new SelectListItem($"{x.Country}, {x.City}, {x.Address}", x.Id.ToString()))
-            };
+            editVM.LocationsList = (await _locationsService.GetAllActiveAsync())
+                    .Select(x => new SelectListItem($"{x.Country}, {x.City}, {x.Address}", x.Id.ToString()));
 
             return editVM;
         }

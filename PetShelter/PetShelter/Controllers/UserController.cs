@@ -23,7 +23,7 @@ namespace PetShelter.Controllers
         //{
         //    var editVM = new UserEditVM
         //    {
-                
+
         //        ShelterList = (await _shelterService.GetAllActiveAsync())
         //            .Select(x => new SelectListItem($"{x.PetCapacity}, {x.LocationId}", x.Id.ToString())),
         //        RoleList = (await _roleService.GetAllAsync())
