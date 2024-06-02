@@ -144,6 +144,8 @@ namespace PetShelter.Controllers
             };
 
             return View(logoutVM);
+
+            //return RedirectToAction("Index", "Home");
         }
 
     }

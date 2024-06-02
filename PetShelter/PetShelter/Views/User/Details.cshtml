@@ -1,4 +1,4 @@
-﻿@model PetShelter.ViewModels.RoleDetailsVM
+﻿@model PetShelter.ViewModels.UserDetailsVM
 
 @{
     ViewBag.Title = "Details";
@@ -6,23 +6,23 @@
 
 <h2>Details</h2>
 <div>
-    <h4>Roles</h4>
+    <h4>User</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Username)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Username)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Users.Count)
+            @Html.DisplayNameFor(model => model.Role)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Users.Count)
+            @Html.DisplayFor(model => model.Role)
         </dd>
 
     </dl>
