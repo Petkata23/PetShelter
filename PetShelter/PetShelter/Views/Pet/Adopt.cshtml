@@ -1,0 +1,92 @@
+﻿@model PetShelter.ViewModels.PetEditVM
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Create Pet";
+}
+
+<h2>Create Pet</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Name" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Age" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Color" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Color" class="form-control" />
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PetTypeId" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="PetTypeId" asp-items="@(new SelectList(Model.PetTypeList, "Value", "Text"))" class="form-control"></select>
+                <span asp-validation-for="PetTypeId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Add other fields and dropdowns -->
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<hr />
+
+@using (Html.BeginForm("AdoptPet", "Pet", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <!-- Add fields and dropdowns for adopting an existing pet -->
+            <!-- Example: dropdown for selecting an existing pet to adopt -->
+        </div>
+
+        <!-- Add other fields and dropdowns if needed -->
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Adopt" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a asp-action="List">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

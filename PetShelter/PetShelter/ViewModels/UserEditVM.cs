@@ -1,4 +1,5 @@
-﻿using Microsoft.Build.Framework;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Build.Framework;
 
 namespace PetShelter.ViewModels
 {
@@ -15,11 +16,14 @@ namespace PetShelter.ViewModels
         
         [Required]
         public string LastName { get; set; }
-        
-        [Required]
-        public RoleDetailsVM Role { get; set; }
-        
-        [Required]
-        public ShelterDetailsVM Shelter { get; set; }
+
+
+        public int RoleId { get; set; }
+
+        public int ShelterId { get; set; }
+
+        public IEnumerable<SelectListItem> RoleList { get; set; }
+
+        public IEnumerable<SelectListItem> ShelterList { get; set; }
     }
 }

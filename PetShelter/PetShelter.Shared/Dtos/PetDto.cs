@@ -40,5 +40,6 @@ namespace PetShelter.Shared.Dtos
         public ShelterDto Shelter { get; set; }
 
         public List<PetVaccineDto> PetVaccines { get; set; }
+        
     }
 }

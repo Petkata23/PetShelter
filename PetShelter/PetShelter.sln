@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShelter.Shared", "PetShe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShelter.Services", "PetShelter.Services\PetShelter.Services.csproj", "{0FC1D71B-A6AC-462E-AD6E-B969C40A72F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShelter.Tests", "PetShelter.Tests\PetShelter.Tests.csproj", "{52911CAD-5153-453D-91E8-6BDF42123CB1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0FC1D71B-A6AC-462E-AD6E-B969C40A72F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FC1D71B-A6AC-462E-AD6E-B969C40A72F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FC1D71B-A6AC-462E-AD6E-B969C40A72F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52911CAD-5153-453D-91E8-6BDF42123CB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52911CAD-5153-453D-91E8-6BDF42123CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52911CAD-5153-453D-91E8-6BDF42123CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52911CAD-5153-453D-91E8-6BDF42123CB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

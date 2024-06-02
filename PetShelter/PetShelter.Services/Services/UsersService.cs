@@ -17,7 +17,7 @@ namespace PetShelter.Services.Services
 
         public async Task<bool> CanUserLoginAsync(string username, string password)
         {
-            var user = await userRepository.GetUserByUsernameAsync(username);
+            var user = await _repository.GetUserByUsernameAsync(username);
 
             if (user == null)
             {
