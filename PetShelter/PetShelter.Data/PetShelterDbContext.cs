@@ -28,6 +28,11 @@ namespace PetShelter.Data
 
         }
 
+        public PetShelterDbContext()
+        {
+
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -78,6 +83,7 @@ namespace PetShelter.Data
                 });
 
         }
+
 
 
     }

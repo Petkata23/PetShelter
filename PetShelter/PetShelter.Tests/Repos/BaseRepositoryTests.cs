@@ -48,6 +48,38 @@ namespace PetShelter.Tests.Repos
             Assert.That(result, Is.EqualTo(model.Object));
         }
 
+        //[Test]
+        //public async Task CreateAsync_ValidModel_AddsEntityToDbSet()
+        //{
+        //    // Arrange
+        //    var model = new Mock<TModel>().Object;
+        //    var entity = new Mock<T>().Object;
+        //    mockMapper.Setup(m => m.Map<T>(model)).Returns(entity);
+
+        //    // Act
+        //    await repository.CreateAsync(model);
+
+        //    // Assert
+        //    mockDbSet.Verify(db => db.AddAsync(entity, default), Times.Once);
+        //    mockContext.Verify(c => c.SaveChangesAsync(default), Times.Once);
+        //}
+
+        //[Test]
+        //public async Task GetByIdAsync_ExistingEntity_ReturnsMappedModel()
+        //{
+        //    // Arrange
+        //    int id = 1;
+        //    var entity = new Mock<T>().Object;
+        //    var model = new Mock<TModel>().Object;
+        //    mockDbSet.Setup(db => db.FindAsync(id)).ReturnsAsync(entity);
+        //    mockMapper.Setup(m => m.Map<TModel>(entity)).Returns(model);
+
+        //    // Act
+        //    var result = await repository.GetByIdAsync(id);
+
+        //    // Assert
+        //    Assert.That(result, Is.EqualTo(model));
+        //}
     }
 
 }
