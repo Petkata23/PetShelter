@@ -44,7 +44,7 @@ namespace PetShelter.Tests.Services
         [Test]
         public async Task WhenSaveAsync_WithNull_ThenThrowArgumentNullException()
         {
-            Assert.ThrowsAsync<ArgumentException>(async () => await _service.SaveAsync(null));
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await _service.SaveAsync(null));
             _breedRepositoryMock.Verify(x => x.SaveAsync(null), Times.Never);
         }
 
@@ -102,7 +102,7 @@ namespace PetShelter.Tests.Services
             //Act
             var userResult = await _service.GetByIdIfExistsAsync(breedId);
 
-            //Assrt
+            //Assert
             _breedRepositoryMock.Verify(x => x.GetByIdAsync(breedId), Times.Once);
             Assert.That(userResult == breed);
         }

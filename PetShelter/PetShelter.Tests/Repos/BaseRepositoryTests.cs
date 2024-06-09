@@ -10,6 +10,7 @@ using Moq;
 using PetShelter.Data;
 using PetShelter.Data.Entities;
 using PetShelter.Shared.Dtos;
+using System.Linq.Expressions;
 
 namespace PetShelter.Tests.Repos
 {
@@ -48,38 +49,48 @@ namespace PetShelter.Tests.Repos
             Assert.That(result, Is.EqualTo(model.Object));
         }
 
-        //[Test]
-        //public async Task CreateAsync_ValidModel_AddsEntityToDbSet()
-        //{
-        //    // Arrange
-        //    var model = new Mock<TModel>().Object;
-        //    var entity = new Mock<T>().Object;
-        //    mockMapper.Setup(m => m.Map<T>(model)).Returns(entity);
+        [Test]
+        public void MapToEntity_ValidModel_ReturnsMappedEntity()
+        {
+            // Arrange
+            var model = new Mock<TModel>();
+            var entity = new Mock<T>();
+            mockMapper.Setup(m => m.Map<T>(model.Object)).Returns(entity.Object);
 
-        //    // Act
-        //    await repository.CreateAsync(model);
+            // Act
+            var result = repository.MapToEntity(model.Object);
 
-        //    // Assert
-        //    mockDbSet.Verify(db => db.AddAsync(entity, default), Times.Once);
-        //    mockContext.Verify(c => c.SaveChangesAsync(default), Times.Once);
-        //}
+            // Assert
+            Assert.That(result, Is.EqualTo(entity.Object));
+        }
 
-        //[Test]
-        //public async Task GetByIdAsync_ExistingEntity_ReturnsMappedModel()
-        //{
-        //    // Arrange
-        //    int id = 1;
-        //    var entity = new Mock<T>().Object;
-        //    var model = new Mock<TModel>().Object;
-        //    mockDbSet.Setup(db => db.FindAsync(id)).ReturnsAsync(entity);
-        //    mockMapper.Setup(m => m.Map<TModel>(entity)).Returns(model);
+        [Test]
+        public void MapToEnumerableOfModel_ValidEntities_ReturnsMappedModels()
+        {
+            // Arrange
+            var entities = new List<T> { new Mock<T>().Object };
+            var models = new List<TModel> { new Mock<TModel>().Object };
+            mockMapper.Setup(m => m.Map<IEnumerable<TModel>>(entities)).Returns(models);
 
-        //    // Act
-        //    var result = await repository.GetByIdAsync(id);
+            // Act
+            var result = repository.MapToEnumerableOfModel(entities);
 
-        //    // Assert
-        //    Assert.That(result, Is.EqualTo(model));
-        //}
+            // Assert
+            Assert.That(result, Is.EqualTo(models));
+        }
+
+
+        [Test]
+        public void Dispose_DisposesContext()
+        {
+            // Act
+            repository.Dispose();
+
+            // Assert
+            mockContext.Verify(m => m.Dispose(), Times.Once);
+        }
+
+
     }
 
 }
