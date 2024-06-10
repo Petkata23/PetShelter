@@ -69,7 +69,7 @@ namespace PetShelter.Services.Services
 
         public async Task AdoptPetAsync(int userId, int petId)
         {
-            var pet = await _petRepository.GetByIdAsync(petId);
+            var pet = await _repository.GetByIdAsync(petId);
             var user = await _userRepository.GetByIdAsync(userId);
 
             if (pet == null || user == null)

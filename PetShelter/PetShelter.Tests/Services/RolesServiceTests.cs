@@ -121,5 +121,66 @@ namespace PetShelter.Tests.Services
             //Assert
             _roleRepositoryMock.Verify(x => x.SaveAsync(roleDto), Times.Once);
         }
+
+        [Test]
+        public async Task WhenGetAllAsync_ThenReturnAllRoles()
+        {
+            // Arrange
+            var roles = new List<RoleDto>
+            {
+                new RoleDto { Name = "Admin", Users = new List<UserDto>() },
+                new RoleDto { Name = "User", Users = new List<UserDto>() }
+            };
+
+            _roleRepositoryMock.Setup(p => p.GetAllAsync()).ReturnsAsync(roles);
+
+            // Act
+            var result = await _service.GetAllAsync();
+
+            // Assert
+            _roleRepositoryMock.Verify(x => x.GetAllAsync(), Times.Once);
+            Assert.That(result, Is.EqualTo(roles));
+        }
+
+        [TestCase("Admin")]
+        [TestCase("User")]
+        public async Task WhenGetByNameIfExistsAsync_WithValidRoleName_ThenReturnRole(string roleName)
+        {
+            // Arrange
+            var roleDto = new RoleDto
+            {
+                Name = roleName,
+                Users = new List<UserDto>()
+            };
+
+            _roleRepositoryMock.Setup(s => s.GetByNameIfExistsAsync(It.Is<string>(x => x.Equals(roleName))))
+                .ReturnsAsync(roleDto);
+
+            // Act
+            var roleResult = await _service.GetByNameIfExistsAsync(roleName);
+
+            // Assert
+            _roleRepositoryMock.Verify(x => x.GetByNameIfExistsAsync(roleName), Times.Once);
+            Assert.That(roleResult, Is.EqualTo(roleDto));
+        }
+
+        [TestCase("")]
+        [TestCase(" ")]
+        public async Task WhenGetByNameIfExistsAsync_WithInvalidRoleName_ThenReturnDefault(string roleName)
+        {
+            // Arrange
+            var role = (RoleDto)default;
+
+            _roleRepositoryMock.Setup(s => s.GetByNameIfExistsAsync(It.Is<string>(x => x.Equals(roleName))))
+                .ReturnsAsync(role);
+
+            // Act
+            var roleResult = await _service.GetByNameIfExistsAsync(roleName);
+
+            // Assert
+            _roleRepositoryMock.Verify(x => x.GetByNameIfExistsAsync(roleName), Times.Once);
+            Assert.That(roleResult, Is.EqualTo(role));
+        }
+
     }
 }

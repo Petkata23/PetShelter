@@ -127,5 +127,25 @@ namespace PetShelter.Tests.Services
             //Assert
             _shelterRepositoryMock.Verify(x => x.SaveAsync(shelterDto), Times.Once);
         }
+
+        [Test]
+        public async Task WhenGetAllAsync_ThenReturnAllRoles()
+        {
+            // Arrange
+            var shelters = new List<ShelterDto>
+            {
+                new ShelterDto { PetCapacity = 10, LocationId = 1, Employees = new List<UserDto>(), Pets = new List<PetDto>() },
+                new ShelterDto { PetCapacity = 15, LocationId = 2, Employees = new List<UserDto>(), Pets = new List<PetDto>() }
+            };
+
+            _shelterRepositoryMock.Setup(p => p.GetAllAsync()).ReturnsAsync(shelters);
+
+            // Act
+            var result = await _service.GetAllAsync();
+
+            // Assert
+            _shelterRepositoryMock.Verify(x => x.GetAllAsync(), Times.Once);
+            Assert.That(result, Is.EqualTo(shelters));
+        }
     }
 }

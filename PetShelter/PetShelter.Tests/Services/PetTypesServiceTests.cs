@@ -121,5 +121,25 @@ namespace PetShelter.Tests.Services
             //Assert
             _petTypeRepositoryMock.Verify(x => x.SaveAsync(petTypeDto), Times.Once);
         }
+
+        [Test]
+        public async Task WhenGetAllAsync_ThenReturnAllPetTypes()
+        {
+            // Arrange
+            var petTypes = new List<PetTypeDto>
+            {
+                new PetTypeDto { Name = "Dog", Pets = new List<PetDto>() },
+                new PetTypeDto { Name = "Cat", Pets = new List<PetDto>() }
+            };
+
+            _petTypeRepositoryMock.Setup(p => p.GetAllAsync()).ReturnsAsync(petTypes);
+
+            // Act
+            var result = await _service.GetAllAsync();
+
+            // Assert
+            _petTypeRepositoryMock.Verify(x => x.GetAllAsync(), Times.Once);
+            Assert.That(result, Is.EqualTo(petTypes));
+        }
     }
 }

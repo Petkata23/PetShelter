@@ -130,5 +130,24 @@ namespace PetShelter.Tests.Services
             _locationRepositoryMock.Verify(x => x.SaveAsync(locationDto), Times.Once);
         }
 
+        [Test]
+        public async Task WhenGetAllAsync_ThenReturnAllLocations()
+        {
+            // Arrange
+            var locationDtos = new List<LocationDto>
+            {
+                new LocationDto { Id = 1, City = "City1", Address = "Address1", Country = "Country1" },
+                new LocationDto { Id = 2, City = "City2", Address = "Address2", Country = "Country2" }
+            };
+
+            _locationRepositoryMock.Setup(p => p.GetAllAsync()).ReturnsAsync(locationDtos);
+
+            // Act
+            var result = await _service.GetAllAsync();
+
+            // Assert
+            _locationRepositoryMock.Verify(x => x.GetAllAsync(), Times.Once);
+            Assert.That(result, Is.EqualTo(locationDtos));
+        }
     }
 }

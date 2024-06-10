@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PetShelter.Shared.Security;
 
 namespace PetShelter.Tests.Services
 {
@@ -139,5 +140,106 @@ namespace PetShelter.Tests.Services
             //Assert
             _userRepositoryMock.Verify(x => x.SaveAsync(userDto), Times.Once);
         }
+
+        [Test]
+        public async Task WhenCanUserLoginAsync_WithValidUsernameAndPassword_ThenReturnTrue()
+        {
+            // Arrange
+            var username = "validUser";
+            var password = "validPassword";
+            var hashedPassword = PasswordHasher.HashPassword(password);
+            var userDto = new UserDto
+            {
+                Username = username,
+                Password = hashedPassword // Assume the hashed password is stored in the database
+            };
+
+            _userRepositoryMock.Setup(s => s.GetByUsernameAsync(username))
+                .ReturnsAsync(userDto);
+
+            // Act
+            var result = await _service.CanUserLoginAsync(username, password);
+
+            // Assert
+            Assert.That(result);
+        }
+
+        [Test]
+        public async Task WhenCanUserLoginAsync_WithInvalidUsername_ThenReturnFalse()
+        {
+            // Arrange
+            var username = "invalidUser";
+            var password = "password";
+
+            _userRepositoryMock.Setup(s => s.GetByUsernameAsync(username))
+                .ReturnsAsync((UserDto)null);
+
+            // Act
+            var result = await _service.CanUserLoginAsync(username, password);
+
+            // Assert
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public async Task WhenCanUserLoginAsync_WithInvalidPassword_ThenReturnFalse()
+        {
+            // Arrange
+            var username = "validUser";
+            var password = "invalidPassword";
+            var hashedPassword = PasswordHasher.HashPassword("validPassword");
+            var userDto = new UserDto
+            {
+                Username = username,
+                Password = hashedPassword // Assume the hashed password is stored in the database
+            };
+
+            _userRepositoryMock.Setup(s => s.GetByUsernameAsync(username))
+                .ReturnsAsync(userDto);
+
+            // Act
+            var result = await _service.CanUserLoginAsync(username, password);
+
+            // Assert
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public async Task WhenGetByUsernameAsync_WithValidUsername_ThenReturnUserDto()
+        {
+            // Arrange
+            var username = "validUser";
+            var expectedUserDto = new UserDto
+            {
+                Username = username,
+                Password = "hashedPassword", 
+            };
+
+            _userRepositoryMock.Setup(s => s.GetByUsernameAsync(username))
+                .ReturnsAsync(expectedUserDto);
+
+            // Act
+            var result = await _service.GetByUsernameAsync(username);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedUserDto));
+        }
+
+        [Test]
+        public async Task WhenGetByUsernameAsync_WithInvalidUsername_ThenReturnNull()
+        {
+            // Arrange
+            var username = "invalidUser";
+
+            _userRepositoryMock.Setup(s => s.GetByUsernameAsync(username))
+                .ReturnsAsync((UserDto)null);
+
+            // Act
+            var result = await _service.GetByUsernameAsync(username);
+
+            // Assert
+            Assert.That(result, Is.Null);
+        }
+
     }
 }

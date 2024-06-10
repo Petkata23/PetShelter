@@ -24,7 +24,7 @@ namespace PetShelter.Controllers
 
             editVM.PetList = (await _petService.GetAllActiveAsync())
                 .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString()));
-            editVM.VaccineList = (await _vaccineService.GetAllActiveAsync())
+            editVM.VaccineList = (await _vaccineService.GetAllAsync())
                 .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString()));
             
 

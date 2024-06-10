@@ -126,6 +126,26 @@ namespace PetShelter.Tests.Services
             //Assert
             _breedRepositoryMock.Verify(x => x.SaveAsync(breedDto), Times.Once);
         }
+
+        [Test]
+        public async Task WhenGetAllActiveAsync_ThenReturnAllBreeds()
+        {
+            // Arrange
+            var breedDtos = new List<BreedDto>
+            {
+                new BreedDto { Id = 1, Name = "Pug", Size = BreedSize.Small },
+                new BreedDto { Id = 2, Name = "Labrador", Size = BreedSize.Large }
+            };
+
+            _breedRepositoryMock.Setup(p => p.GetAllAsync()).ReturnsAsync(breedDtos);
+
+            // Act
+            var result = await _service.GetAllActiveAsync();
+
+            // Assert
+            _breedRepositoryMock.Verify(x => x.GetAllAsync(), Times.Once);
+            Assert.That(result, Is.EqualTo(breedDtos));
+        }
     }
 }
 

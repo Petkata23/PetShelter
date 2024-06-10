@@ -126,5 +126,44 @@ namespace PetShelter.Tests.Services
             //Assert
             _vaccineRepositoryMock.Verify(x => x.SaveAsync(vaccineDto), Times.Once);
         }
+
+        [Test]
+        public async Task GetAllAsync_Returns_AllVaccines()
+        {
+            // Arrange
+            var expectedVaccines = new List<VaccineDto>
+            {
+                new VaccineDto { Id = 1, Name = "Vaccine1", Description = "Description1", PetVaccines = new List<PetVaccineDto>() },
+                new VaccineDto { Id = 2, Name = "Vaccine2", Description = "Description2", PetVaccines = new List<PetVaccineDto>() },
+                new VaccineDto { Id = 3, Name = "Vaccine3", Description = "Description3", PetVaccines = new List<PetVaccineDto>() }
+            };
+
+            _vaccineRepositoryMock.Setup(repo => repo.GetAllAsync())
+                .ReturnsAsync(expectedVaccines);
+
+            // Act
+            var result = await _service.GetAllAsync();
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedVaccines));
+        }
+
+        [Test]
+        public async Task GetAllAsync_Returns_EmptyList_WhenNoVaccinesExist()
+        {
+            // Arrange
+            var expectedVaccines = new List<VaccineDto>();
+
+            _vaccineRepositoryMock.Setup(repo => repo.GetAllAsync())
+                .ReturnsAsync(expectedVaccines);
+
+            // Act
+            var result = await _service.GetAllAsync();
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.Empty);
+        }
+
     }
 }

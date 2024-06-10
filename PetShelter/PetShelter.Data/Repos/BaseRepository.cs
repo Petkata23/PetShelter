@@ -16,7 +16,7 @@ namespace PetShelter.Data.Repos
         where T : class, IBaseEntity
         where TModel : BaseModel
     {
-        protected readonly DbContext _context;
+        protected readonly PetShelterDbContext _context;
         protected readonly DbSet<T> _dbSet;
         protected readonly IMapper mapper;
         private bool disposedValue;

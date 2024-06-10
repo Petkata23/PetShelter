@@ -18,7 +18,7 @@ namespace PetShelter.Services.Services
 
         }
 
-        public async Task<IEnumerable<LocationDto>> GetAllActiveAsync()
+        public async Task<IEnumerable<LocationDto>> GetAllAsync()
         {
             var allLocations = await _repository.GetAllAsync();
             return allLocations;

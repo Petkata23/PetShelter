@@ -1,4 +1,5 @@
 ﻿using Moq;
+using PetShelter.Data.Entities;
 using PetShelter.Services.Services;
 using PetShelter.Shared.Dtos;
 using PetShelter.Shared.Repos.Contracts;
@@ -13,14 +14,18 @@ namespace PetShelter.Tests.Services
 {
     public class PetsServiceTests
     {
-        private readonly Mock<IPetRepository> _petRepositoryMock = new Mock<IPetRepository>();
-        private readonly Mock<IUserRepository> _userRepositoryMock = new Mock<IUserRepository>();
-        private readonly Mock<IShelterRepository> _shelterRepositoryMock = new Mock<IShelterRepository>();
+        private Mock<IPetRepository> _petRepositoryMock;
+        private Mock<IUserRepository> _userRepositoryMock;
+        private Mock<IShelterRepository> _shelterRepositoryMock;
 
-        private readonly IPetsService _service;
+        private IPetsService _service;
 
-        public PetsServiceTests()
+        [SetUp]
+        public void SetUp()
         {
+            _petRepositoryMock = new Mock<IPetRepository>();
+            _userRepositoryMock = new Mock<IUserRepository>();
+            _shelterRepositoryMock = new Mock<IShelterRepository>();
             _service = new PetsService(_petRepositoryMock.Object, _userRepositoryMock.Object, _shelterRepositoryMock.Object);
         }
 
@@ -36,12 +41,12 @@ namespace PetShelter.Tests.Services
                 Color = "PetColor",
                 IsAdopted = false,
                 IsEuthanized = false,
-                PetTypeId = 1, 
+                PetTypeId = 1,
                 BreedId = 1,
-                AdopterId = null, 
-                GiverId = null, 
-                ShelterId = null, 
-                PetVaccines = new List<PetVaccineDto>() 
+                AdopterId = null,
+                GiverId = null,
+                ShelterId = null,
+                PetVaccines = new List<PetVaccineDto>()
             };
 
             // Act
@@ -50,7 +55,6 @@ namespace PetShelter.Tests.Services
             //Assert
             _petRepositoryMock.Verify(x => x.SaveAsync(petDto), Times.Once);
         }
-
 
         [Test]
         public async Task WhenSaveAsync_WithNull_ThenThrowArgumentNullException()
@@ -72,16 +76,15 @@ namespace PetShelter.Tests.Services
             _petRepositoryMock.Verify(x => x.DeleteAsync(id), Times.Once);
         }
 
-        [Theory]
         [TestCase(1)]
         [TestCase(22)]
         [TestCase(131)]
-        public async Task WhenGetByIdAsync_WithValidPetId_ThenReturnUser(int petId)
+        public async Task WhenGetByIdAsync_WithValidPetId_ThenReturnPet(int petId)
         {
             // Arrange
             var petDto = new PetDto()
             {
-                Id = 0,
+                Id = petId,
                 Name = "PetName",
                 Age = 2,
                 Color = "PetColor",
@@ -98,12 +101,12 @@ namespace PetShelter.Tests.Services
             _petRepositoryMock.Setup(s => s.GetByIdAsync(It.Is<int>(x => x.Equals(petId))))
                 .ReturnsAsync(petDto);
 
-            //Act
-            var userResult = await _service.GetByIdIfExistsAsync(petId);
+            // Act
+            var petResult = await _service.GetByIdIfExistsAsync(petId);
 
-            //Assert
+            // Assert
             _petRepositoryMock.Verify(x => x.GetByIdAsync(petId), Times.Once);
-            Assert.That(userResult == petDto);
+            Assert.That(petResult, Is.EqualTo(petDto));
         }
 
         [TestCase(0)]
@@ -111,18 +114,18 @@ namespace PetShelter.Tests.Services
         [TestCase(102021)]
         public async Task WhenGetByIdAsync_WithInvalidPetId_ThenReturnDefault(int petId)
         {
-            //Arrange
+            // Arrange
             var pet = (PetDto)default;
 
             _petRepositoryMock.Setup(s => s.GetByIdAsync(It.Is<int>(x => x.Equals(petId))))
                 .ReturnsAsync(pet);
 
-            //Act
-            var userResult = await _service.GetByIdIfExistsAsync(petId);
+            // Act
+            var petResult = await _service.GetByIdIfExistsAsync(petId);
 
-            //Assert
+            // Assert
             _petRepositoryMock.Verify(x => x.GetByIdAsync(petId), Times.Once);
-            Assert.That(userResult == pet);
+            Assert.That(petResult, Is.EqualTo(pet));
         }
 
         [Test]
@@ -148,11 +151,115 @@ namespace PetShelter.Tests.Services
             _petRepositoryMock.Setup(s => s.SaveAsync(It.Is<PetDto>(x => x.Equals(petDto))))
                 .Verifiable();
 
-            //Act
+            // Act
             await _service.SaveAsync(petDto);
 
-            //Assert
+            // Assert
             _petRepositoryMock.Verify(x => x.SaveAsync(petDto), Times.Once);
+        }
+
+        [Test]
+        public async Task WhenGivePetAsync_WithValidData_ThenCreateAsync()
+        {
+            // Arrange
+            int userId = 1;
+            int shelterId = 1;
+            var petDto = new PetDto()
+            {
+                Name = "PetName",
+                Age = 2,
+                Color = "PetColor",
+                IsAdopted = false,
+                IsEuthanized = false,
+                PetTypeId = 1,
+                BreedId = 1,
+                GiverId = userId,
+                ShelterId = shelterId,
+                PetVaccines = new List<PetVaccineDto>()
+            };
+
+            _shelterRepositoryMock.Setup(s => s.GetByIdAsync(shelterId)).ReturnsAsync(new ShelterDto());
+            _userRepositoryMock.Setup(s => s.GetByIdAsync(userId)).ReturnsAsync(new UserDto());
+
+            // Act
+            await _service.GivePetAsync(userId, shelterId, petDto);
+
+            // Assert
+            _petRepositoryMock.Verify(x => x.CreateAsync(It.Is<PetDto>(p => p.Name == petDto.Name && p.GiverId == userId && p.ShelterId == shelterId)), Times.Once);
+        }
+
+        [Test]
+        public void WhenGivePetAsync_WithInvalidShelterOrUser_ThenThrowArgumentException()
+        {
+            // Arrange
+            int userId = 1;
+            int shelterId = 1;
+            var petDto = new PetDto();
+
+            _shelterRepositoryMock.Setup(s => s.GetByIdAsync(shelterId)).ReturnsAsync((ShelterDto)null);
+            _userRepositoryMock.Setup(s => s.GetByIdAsync(userId)).ReturnsAsync((UserDto)null);
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentException>(async () => await _service.GivePetAsync(userId, shelterId, petDto));
+            _petRepositoryMock.Verify(x => x.CreateAsync(It.IsAny<PetDto>()), Times.Never);
+        }
+
+        [Test]
+        public async Task WhenAdoptPetAsync_WithValidData_ThenUpdateAsync()
+        {
+            // Arrange
+            int userId = 1;
+            int petId = 1;
+            var petDto = new PetDto()
+            {
+                Id = petId,
+                AdopterId = null,
+                IsAdopted = false
+            };
+
+            _petRepositoryMock.Setup(p => p.GetByIdAsync(petId)).ReturnsAsync(petDto);
+            _userRepositoryMock.Setup(u => u.GetByIdAsync(userId)).ReturnsAsync(new UserDto());
+
+            // Act
+            await _service.AdoptPetAsync(userId, petId);
+
+            // Assert
+            _petRepositoryMock.Verify(x => x.UpdateAsync(It.Is<PetDto>(p => p.Id == petId && p.AdopterId == userId && p.IsAdopted)), Times.Once);
+        }
+
+        [Test]
+        public void WhenAdoptPetAsync_WithInvalidPetOrUser_ThenThrowArgumentException()
+        {
+            // Arrange
+            int userId = 1;
+            int petId = 1;
+
+            _petRepositoryMock.Setup(p => p.GetByIdAsync(petId)).ReturnsAsync((PetDto)null);
+            _userRepositoryMock.Setup(u => u.GetByIdAsync(userId)).ReturnsAsync((UserDto)null);
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentException>(async () => await _service.AdoptPetAsync(userId, petId));
+            _petRepositoryMock.Verify(x => x.UpdateAsync(It.IsAny<PetDto>()), Times.Never);
+        }
+
+        [Test]
+        public async Task WhenGetAllActiveAsync_ThenReturnAllPets()
+        {
+            // Arrange
+            var petDtos = new List<PetDto>
+            {
+                new PetDto { Id = 1, Name = "Pet1" },
+                new PetDto { Id = 2, Name = "Pet2" },
+            };
+
+            _petRepositoryMock.Setup(p => p.GetAllAsync()).ReturnsAsync(petDtos);
+
+            // Act
+            var result = await _service.GetAllActiveAsync();
+
+            // Assert
+            _petRepositoryMock.Verify(x => x.GetAllAsync(), Times.Once);
+            Assert.That(result, Is.EqualTo(petDtos));
         }
     }
 }

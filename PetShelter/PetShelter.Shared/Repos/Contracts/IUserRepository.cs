@@ -9,8 +9,6 @@ namespace PetShelter.Shared.Repos.Contracts
 {
     public interface IUserRepository : IBaseRepository<UserDto>
     {
-        Task<UserDto> GetUserByUsernameAsync(string username);
-
         Task<UserDto> GetByUsernameAsync(string username);
     }
 }

@@ -79,7 +79,6 @@ namespace PetShelter.Tests.Repos
             Assert.That(result, Is.EqualTo(models));
         }
 
-
         [Test]
         public void Dispose_DisposesContext()
         {
@@ -89,8 +88,5 @@ namespace PetShelter.Tests.Repos
             // Assert
             mockContext.Verify(m => m.Dispose(), Times.Once);
         }
-
-
     }
-
 }

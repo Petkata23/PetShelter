@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PetShelter.Controllers;
 using PetShelter.Services.Services;
+using PetShelter.Shared;
 using PetShelter.Shared.Dtos;
 using PetShelter.Shared.Repos.Contracts;
 using PetShelter.Shared.Services.Contracts;
@@ -30,13 +31,13 @@ public class PetController : BaseCrudController<PetDto, IPetRepository, IPetsSer
     {
         new PetEditVM
         {
-            PetTypeList = (await _petTypeService.GetAllActiveAsync())
+            PetTypeList = (await _petTypeService.GetAllAsync())
                 .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString())),
             BreedList = (await _breedService.GetAllActiveAsync())
                 .Select(x => new SelectListItem($"{x.Name}, {x.Size}", x.Id.ToString())),
-            ShelterList = (await _shelterService.GetAllActiveAsync())
+            ShelterList = (await _shelterService.GetAllAsync())
                 .Select(x => new SelectListItem($"{x.PetCapacity}, {x.LocationId}", x.Id.ToString())),
-            VaccineList = (await _vaccineService.GetAllActiveAsync())
+            VaccineList = (await _vaccineService.GetAllAsync())
                 .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString()))
         };
 
@@ -44,7 +45,7 @@ public class PetController : BaseCrudController<PetDto, IPetRepository, IPetsSer
     }
 
 
-    [HttpPost]
+    [HttpGet]
     public async Task<IActionResult> CreatePet(int userId, int shelterId, [FromBody] PetDto petDto)
     {
         try
@@ -62,7 +63,8 @@ public class PetController : BaseCrudController<PetDto, IPetRepository, IPetsSer
         }
     }
 
-    [HttpPost]
+
+    [HttpGet]
     public async Task<IActionResult> AdoptPet(int userId, int petId)
     {
         try
@@ -79,4 +81,5 @@ public class PetController : BaseCrudController<PetDto, IPetRepository, IPetsSer
             return StatusCode(500, ex.Message);
         }
     }
+
 }
