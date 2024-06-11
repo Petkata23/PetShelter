@@ -15,16 +15,20 @@ namespace PetShelter.Services.Services
         private readonly IPetRepository _petRepository;
         private readonly IUserRepository _userRepository;
         private readonly IShelterRepository _shelterRepository;
+        private readonly IVaccineRepository _vaccineRepository;
+        private readonly IPetVaccineRepository _petVaccineRepository;
 
-        public PetsService(IPetRepository petRepository, IUserRepository userRepository, IShelterRepository shelterRepository)
+        public PetsService(IPetRepository petRepository, IUserRepository userRepository, IShelterRepository shelterRepository, IVaccineRepository vaccineRepository, IPetVaccineRepository petVaccineRepository)
             : base(petRepository) // Call the base constructor
         {
             _petRepository = petRepository;
             _userRepository = userRepository;
             _shelterRepository = shelterRepository;
+            _vaccineRepository = vaccineRepository;
+            _petVaccineRepository = petVaccineRepository;
         }
 
-        public async Task GivePetAsync(int userId, int shelterId, PetDto petDto)
+        public async Task GivePetAsync(int userId, int shelterId, PetDto petDto )
         {
             var shelter = await _shelterRepository.GetByIdAsync(shelterId);
             var user = await _userRepository.GetByIdAsync(userId);
@@ -83,9 +87,28 @@ namespace PetShelter.Services.Services
             await _petRepository.UpdateAsync(pet);
         }
 
+        public async Task VaccinatePetAsync(int vaccineId, int petId)
+        {
+            var pet = await _repository.GetByIdAsync(petId);
+            var vaccine = await _vaccineRepository.GetByIdAsync(vaccineId);
+
+            if (pet == null || vaccine == null)
+            {
+                throw new ArgumentException("Pet or vaccine not found.");
+            }
+            var petVaccine = new PetVaccineDto()
+            {
+                VaccineId = vaccineId,
+                PetId = petId
+            };
+
+            await _petVaccineRepository.SaveAsync(petVaccine);
+        }
+
         public async Task<IEnumerable<PetDto>> GetAllActiveAsync()
         {
             return await _repository.GetAllAsync();
         }
+
     }
 }
