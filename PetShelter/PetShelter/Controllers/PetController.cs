@@ -18,6 +18,7 @@ public class PetController : BaseCrudController<PetDto, IPetRepository, IPetsSer
     private readonly IVaccinesService _vaccineService;
     private readonly IPetsService _petsService;
     private readonly IUsersService _usersService;
+    private readonly IPetVaccinesService _petVaccinesService;
 
     public PetController(IPetsService service, IBreedsService breedsService, IPetTypesService petTypeService, ISheltersService shelterService, IVaccinesService vaccineService, IUsersService usersService, IMapper mapper)
         : base(service, mapper)
@@ -95,31 +96,61 @@ public class PetController : BaseCrudController<PetDto, IPetRepository, IPetsSer
         }
     }
 
-    [HttpGet]
-    public virtual async Task<IActionResult> VaccinatePet()
-    {
-        var editVM = await PrePopulateVMAsync(new PetEditVM());
+    //[HttpGet]
+    //public virtual async Task<IActionResult> VaccinatePet()
+    //{
+    //    var editVM = await PrePopulateVMAsync(new PetEditVM());
 
-        return View(editVM);
+    //    return View(editVM);
+    //}
+
+    //[HttpPost]
+    //public async Task<IActionResult> VaccinatePet(int petId, int vaccineId)
+    //{
+    //    try
+    //    {
+    //        var vaccine = await this._vaccineService.GetByIdIfExistsAsync(vaccineId);
+    //        await _petsService.VaccinatePetAsync(vaccineId, petId);
+    //        return await List();
+    //    }
+    //    catch (ArgumentException ex)
+    //    {
+    //        return BadRequest(ex.Message);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return StatusCode(500, ex.Message);
+    //    }
+    //}
+
+    [HttpGet]
+    public virtual async Task<IActionResult> VaccinatePet(int? petId)
+    {
+        if (petId == null)
+        {
+            return BadRequest(Constants.InvalidId);
+        }
+
+        var model = await this._service.GetByIdIfExistsAsync(petId.Value);
+
+        if (model == default)
+        {
+            return BadRequest(Constants.InvalidId);
+        }
+
+        var mappedModel = new PetVaccineTypeEditVM();
+        mappedModel.VaccineList = (await _vaccineService.GetAllAsync())
+            .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString()));
+        mappedModel.PetId = petId.Value;
+
+        return View(mappedModel);
     }
 
     [HttpPost]
-    public async Task<IActionResult> VaccinatePet(int petId, int vaccineId)
+    public virtual async Task<IActionResult> VaccinatePet(PetVaccineTypeEditVM editVM)
     {
-        try
-        {
-            var vaccine = await this._vaccineService.GetByIdIfExistsAsync(vaccineId);
-            await _petsService.VaccinatePetAsync(vaccineId, petId);
-            return await List();
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, ex.Message);
-        }
+        await this._service.VaccinatePetAsync(editVM.VaccineId, editVM.PetId);
+        return await List();
     }
 
 }

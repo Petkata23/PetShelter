@@ -143,7 +143,7 @@ namespace PetShelter.Tests.Services
             _locationRepositoryMock.Setup(p => p.GetAllAsync()).ReturnsAsync(locationDtos);
 
             // Act
-            var result = await _service.GetAllAsync();
+            var result = await _service.GetAllActiveAsync();
 
             // Assert
             _locationRepositoryMock.Verify(x => x.GetAllAsync(), Times.Once);
