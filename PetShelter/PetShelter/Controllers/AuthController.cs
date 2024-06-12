@@ -138,14 +138,15 @@ namespace PetShelter.Controllers
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             }
 
-            var logoutVM = new LogoutVM
-            {
-                Message = "You have been successfully logged out."
-            };
 
-            return View(logoutVM);
+            return RedirectToAction(nameof(HomeController.Index), "Home");
 
-            //return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult ConfirmLogout()
+        {
+            return View();
         }
 
     }

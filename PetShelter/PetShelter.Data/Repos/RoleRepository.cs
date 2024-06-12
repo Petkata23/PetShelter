@@ -23,7 +23,7 @@ namespace PetShelter.Data.Repos
         public async Task<RoleDto> GetByNameIfExistsAsync(string roleName)
         {
             var role = await _context.Roles
-                .FirstOrDefaultAsync(r => r.Name.Equals(roleName, StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefaultAsync(r => r.Name.ToLower() == roleName.ToLower());
 
             return mapper.Map<RoleDto>(role);
         }
