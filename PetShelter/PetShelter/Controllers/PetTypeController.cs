@@ -23,7 +23,7 @@ namespace PetShelter.Controllers
         {
             new PetTypeEditVM
             {
-                PetTypeList = (await _petTypeService.GetAllActiveAsync())
+                PetTypeList = (await _petTypeService.GetAllAsync())
                     .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                     .ToList()
             };

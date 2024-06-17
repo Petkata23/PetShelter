@@ -55,42 +55,22 @@ namespace PetShelter.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        public async Task<IActionResult> LoginUser(string username)
+        private async Task LoginUser(string username)
         {
-            // Retrieve the user by username
             var user = await this.usersService.GetByUsernameAsync(username);
-
-            // Check if the user exists
-            if (user != null)
+            var claims = new[]
             {
-                // Create claims for the user
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.Username),
-                    // Check if the user has a role
-                    user.Role != null ? new Claim(ClaimTypes.Role, user.Role.Name) : null
-                };
+               new Claim(ClaimTypes.Name, user.Username),
+               new Claim(ClaimTypes.Role, user.Role.Name),
+            };
 
-                // Create the identity for the user
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                // Create the principal
-                var principal = new ClaimsPrincipal(identity);
+            var principle = new ClaimsPrincipal(identity);
 
-                // Sign in the user
-                await HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    principal);
-
-                // Redirect the user to the home page
-                return RedirectToAction(nameof(HomeController.Index), "Home");
-            }
-            else
-            {
-                // Handle the case where the user is not found
-                // For example, you could return a BadRequest response with an error message
-                return BadRequest(Constants.UserNotFound);
-            }
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                principle);
         }
 
 
@@ -138,14 +118,15 @@ namespace PetShelter.Controllers
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             }
 
-            var logoutVM = new LogoutVM
-            {
-                Message = "You have been successfully logged out."
-            };
 
-            return View(logoutVM);
+            return RedirectToAction(nameof(HomeController.Index), "Home");
 
-            //return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult ConfirmLogout()
+        {
+            return View();
         }
 
     }

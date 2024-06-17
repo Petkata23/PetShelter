@@ -28,6 +28,11 @@ namespace PetShelter.Data
 
         }
 
+        public PetShelterDbContext()
+        {
+
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -61,6 +66,11 @@ namespace PetShelter.Data
                 .WithOne(a => a.Shelter)
                 .HasForeignKey<Location>(c => c.ShelterId);
 
+            modelBuilder.Entity<Location>()
+                .HasOne(a => a.Shelter)
+                .WithOne(a => a.Location)
+                .HasForeignKey<Shelter>(c => c.LocationId);
+
             foreach (var role in Enum.GetValues(typeof(UserRole)).Cast<UserRole>())
             {
                 modelBuilder.Entity<Role>().HasData(new Role { Id = (int)role, Name = role.ToString() });
@@ -78,6 +88,7 @@ namespace PetShelter.Data
                 });
 
         }
+
 
 
     }

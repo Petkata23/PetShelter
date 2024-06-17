@@ -17,7 +17,7 @@ namespace PetShelter.Services.Services
             _petTypeRepository = repository;
         }
 
-        public async Task<IEnumerable<PetTypeDto>> GetAllActiveAsync()
+        public async Task<IEnumerable<PetTypeDto>> GetAllAsync()
         {
             return await _repository.GetAllAsync();
         }

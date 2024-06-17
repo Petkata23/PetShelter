@@ -21,9 +21,9 @@ namespace PetShelter.Controllers
 
         protected override async Task<UserEditVM> PrePopulateVMAsync(UserEditVM editVM)
         {
-            editVM.RoleList = (await _roleService.GetAllActiveAsync())
+            editVM.RoleList = (await _roleService.GetAllAsync())
                     .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString()));
-            editVM.ShelterList = (await _shelterService.GetAllActiveAsync())
+            editVM.ShelterList = (await _shelterService.GetAllAsync())
                     .Select(x => new SelectListItem($"{x.PetCapacity}, {x.Location}", x.Id.ToString()));
 
             return editVM;

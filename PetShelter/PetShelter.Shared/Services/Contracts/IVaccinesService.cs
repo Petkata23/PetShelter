@@ -11,6 +11,6 @@ namespace PetShelter.Shared.Services.Contracts
 {
     public interface IVaccinesService : IBaseCrudService<VaccineDto, IVaccineRepository>
     {
-        Task<IEnumerable<VaccineDto>> GetAllActiveAsync();
+        Task<IEnumerable<VaccineDto>> GetAllAsync();
     }
 }

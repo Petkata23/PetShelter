@@ -1,54 +1,49 @@
 ﻿@model IEnumerable<PetShelter.ViewModels.PetDetailsVM>
 
-@{ ViewBag.Title = "Index"; }
+@{
+    ViewBag.Title = "Pets";
+}
 
 <h2>Pets</h2>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Age)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Color)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsAdopted)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsEuthanized)
-        </th>
-        <th>Actions</th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAdopted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsEuthanized)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                @Html.ActionLink("Adopt", "CreatePet", new { id = item.Id })
-            </td>
-        </tr>
-    }
-</table>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Give Pet", "GivePet", null, new { @class = "btn btn-success ml-2" })
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Color</th>
+                <th>Adopted</th>
+                <th>Euthanized</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Age)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Color)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IsAdopted)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IsEuthanized)</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                            @Html.ActionLink("Adopt", "AdoptPet", new { petId = item.Id }, new { @class = "btn btn-success btn-sm" })
+                            @Html.ActionLink("Vaccinate", "VaccinatePet", new { petId = item.Id }, new { @class = "btn btn-warning btn-sm" })
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

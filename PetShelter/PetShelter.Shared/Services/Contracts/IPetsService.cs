@@ -14,5 +14,6 @@ namespace PetShelter.Shared.Services.Contracts
         Task<IEnumerable<PetDto>> GetAllActiveAsync();
         Task GivePetAsync(int userId, int shelterId, PetDto pet);
         Task AdoptPetAsync(int userId, int petId);
+        Task VaccinatePetAsync(int vaccineId, int petId);
     }
 }

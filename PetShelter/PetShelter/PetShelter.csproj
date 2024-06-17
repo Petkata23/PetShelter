@@ -35,12 +35,4 @@
     <ProjectReference Include="..\PetShelter.Shared\PetShelter.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Auth\Logout.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\Auth\Logout.cshtml" />
-  </ItemGroup>
-
 </Project>

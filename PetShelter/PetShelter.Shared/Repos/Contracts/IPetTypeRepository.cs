@@ -9,6 +9,5 @@ namespace PetShelter.Shared.Repos.Contracts
 {
     public interface IPetTypeRepository : IBaseRepository<PetTypeDto>
     {
-        Task<IEnumerable<PetTypeDto>> GetActivePetTypesAsync();
     }
 }

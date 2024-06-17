@@ -17,7 +17,7 @@ namespace PetShelter.Services.Services
             this.roleRepository = roleRepository;
         }
 
-        public async Task<IEnumerable<RoleDto>> GetAllActiveAsync()
+        public async Task<IEnumerable<RoleDto>> GetAllAsync()
         {
             var allRoles = await roleRepository.GetAllAsync();
             return allRoles;
