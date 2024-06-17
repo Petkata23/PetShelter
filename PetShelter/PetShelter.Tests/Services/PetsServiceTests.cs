@@ -17,6 +17,8 @@ namespace PetShelter.Tests.Services
         private Mock<IPetRepository> _petRepositoryMock;
         private Mock<IUserRepository> _userRepositoryMock;
         private Mock<IShelterRepository> _shelterRepositoryMock;
+        private Mock<IVaccineRepository> _vaccineRepositoryMock;
+        private Mock<IPetVaccineRepository> _petVaccineRepositoryMock;
 
         private IPetsService _service;
 
@@ -26,7 +28,15 @@ namespace PetShelter.Tests.Services
             _petRepositoryMock = new Mock<IPetRepository>();
             _userRepositoryMock = new Mock<IUserRepository>();
             _shelterRepositoryMock = new Mock<IShelterRepository>();
-            _service = new PetsService(_petRepositoryMock.Object, _userRepositoryMock.Object, _shelterRepositoryMock.Object);
+            _vaccineRepositoryMock = new Mock<IVaccineRepository>();
+            _petVaccineRepositoryMock = new Mock<IPetVaccineRepository>();
+            _service = new PetsService(
+                _petRepositoryMock.Object,
+                _userRepositoryMock.Object,
+                _shelterRepositoryMock.Object,
+                _vaccineRepositoryMock.Object,
+                _petVaccineRepositoryMock.Object
+            );
         }
 
         [Test]

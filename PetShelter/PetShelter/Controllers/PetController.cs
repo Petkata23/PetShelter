@@ -35,7 +35,7 @@ public class PetController : BaseCrudController<PetDto, IPetRepository, IPetsSer
     {
         editVM.PetTypeList = (await _petTypeService.GetAllAsync())
             .Select(x => new SelectListItem($"{x.Name}", x.Id.ToString()));
-            editVM.BreedList = (await _breedService.GetAllActiveAsync())
+            editVM.BreedList = (await _breedService.GetAllAsync())
                 .Select(x => new SelectListItem($"{x.Name}, {x.Size}", x.Id.ToString()));
         editVM.ShelterList = (await _shelterService.GetAllAsync())
             .Select(x => new SelectListItem($"{x.PetCapacity}, {x.LocationId}", x.Id.ToString()));
@@ -95,33 +95,6 @@ public class PetController : BaseCrudController<PetDto, IPetRepository, IPetsSer
             return StatusCode(500, ex.Message);
         }
     }
-
-    //[HttpGet]
-    //public virtual async Task<IActionResult> VaccinatePet()
-    //{
-    //    var editVM = await PrePopulateVMAsync(new PetEditVM());
-
-    //    return View(editVM);
-    //}
-
-    //[HttpPost]
-    //public async Task<IActionResult> VaccinatePet(int petId, int vaccineId)
-    //{
-    //    try
-    //    {
-    //        var vaccine = await this._vaccineService.GetByIdIfExistsAsync(vaccineId);
-    //        await _petsService.VaccinatePetAsync(vaccineId, petId);
-    //        return await List();
-    //    }
-    //    catch (ArgumentException ex)
-    //    {
-    //        return BadRequest(ex.Message);
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return StatusCode(500, ex.Message);
-    //    }
-    //}
 
     [HttpGet]
     public virtual async Task<IActionResult> VaccinatePet(int? petId)

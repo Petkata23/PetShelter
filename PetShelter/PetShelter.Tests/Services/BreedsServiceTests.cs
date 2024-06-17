@@ -140,7 +140,7 @@ namespace PetShelter.Tests.Services
             _breedRepositoryMock.Setup(p => p.GetAllAsync()).ReturnsAsync(breedDtos);
 
             // Act
-            var result = await _service.GetAllActiveAsync();
+            var result = await _service.GetAllAsync();
 
             // Assert
             _breedRepositoryMock.Verify(x => x.GetAllAsync(), Times.Once);

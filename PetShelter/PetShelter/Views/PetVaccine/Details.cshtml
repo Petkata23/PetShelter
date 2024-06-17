@@ -4,31 +4,37 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Vaccine Type Details</h2>
-<div>
-    <h4>Vaccine Type Information</h4>
+<div class="container mt-4">
+    <h2 class="text-center">Vaccine Type Details</h2>
     <hr />
-    <dl class="dl-horizontal">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Pet)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Pet)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Vaccine)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Vaccine)
-        </dd>
-    </dl>
-
-    <div>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
-        @Html.ActionLink("Back to List", "List", null, new { @class = "btn btn-default" })
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Vaccine Type Information</h4>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <strong>Pet:</strong>
+                        </div>
+                        <div class="col-sm-8">
+                            @Html.DisplayFor(model => model.Pet)
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-sm-4">
+                            <strong>Vaccine:</strong>
+                        </div>
+                        <div class="col-sm-8">
+                            @Html.DisplayFor(model => model.Vaccine)
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Back to List", "List", null, new { @class = "btn btn-secondary" })
+                </div>
+            </div>
+        </div>
     </div>
 </div>
