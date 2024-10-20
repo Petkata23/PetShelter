@@ -1,38 +1,114 @@
 @model PetShelter.ViewModels.PetVaccineDetailsVM
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Vaccine and Pet Details";
 }
 
-<div class="container mt-4">
-    <h2 class="text-center">Vaccine Type Details</h2>
-    <hr />
-
+<div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Vaccine Type Information</h4>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <strong>Pet:</strong>
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header bg-info text-white text-center py-4">
+                    <h3 class="card-title mb-0" style="font-family: 'Segoe UI', sans-serif;">Pet & Vaccine Details</h3>
+                </div>
+
+                <div class="card-body p-5">
+                    <h5 class="text-center text-muted mb-5">Detailed Information</h5>
+
+                    <!-- Pet Name -->
+                    <div class="row mb-4">
+                        <div class="col-sm-4 text-right">
+                            <strong class="text-info">Pet Name:</strong>
                         </div>
                         <div class="col-sm-8">
-                            @Html.DisplayFor(model => model.Pet)
+                            <span class="text-muted">@Html.DisplayFor(model => model.Pet.Name)</span>
                         </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-sm-4">
-                            <strong>Vaccine:</strong>
+
+                    <!-- Pet Color -->
+                    <div class="row mb-4">
+                        <div class="col-sm-4 text-right">
+                            <strong class="text-info">Color:</strong>
                         </div>
                         <div class="col-sm-8">
-                            @Html.DisplayFor(model => model.Vaccine)
+                            <span class="text-muted">@Html.DisplayFor(model => model.Pet.Color)</span>
+                        </div>
+                    </div>
+
+                    <!-- Pet Age -->
+                    <div class="row mb-4">
+                        <div class="col-sm-4 text-right">
+                            <strong class="text-info">Age:</strong>
+                        </div>
+                        <div class="col-sm-8">
+                            <span class="text-muted">@Html.DisplayFor(model => model.Pet.Age)</span>
+                        </div>
+                    </div>
+
+                    <!-- Breed -->
+                    <div class="row mb-4">
+                        <div class="col-sm-4 text-right">
+                            <strong class="text-info">Breed:</strong>
+                        </div>
+                        <div class="col-sm-8">
+                            <span class="text-muted">@Html.DisplayFor(model => model.Pet.Breed.Name)</span>
+                        </div>
+                    </div>
+
+                    <!-- Pet Type -->
+                    <div class="row mb-4">
+                        <div class="col-sm-4 text-right">
+                            <strong class="text-info">Pet Type:</strong>
+                        </div>
+                        <div class="col-sm-8">
+                            <span class="text-muted">@Html.DisplayFor(model => model.Pet.PetType.Name)</span>
+                        </div>
+                    </div>
+
+                    <!-- Vaccine Information -->
+                    <div class="row mb-4">
+                        <div class="col-sm-4 text-right">
+                            <strong class="text-info">Vaccine Name:</strong>
+                        </div>
+                        <div class="col-sm-8">
+                            <span class="text-muted">@Html.DisplayFor(model => model.Vaccine.Name)</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-sm-4 text-right">
+                            <strong class="text-info">Vaccine Description:</strong>
+                        </div>
+                        <div class="col-sm-8">
+                            <span class="text-muted">@Html.DisplayFor(model => model.Vaccine.Description)</span>
+                        </div>
+                    </div>
+
+                    <!-- Is Adopted -->
+                    <div class="row mb-4">
+                        <div class="col-sm-4 text-right">
+                            <strong class="text-info">Adopted:</strong>
+                        </div>
+                        <div class="col-sm-8">
+                            <span class="text-muted">@Html.DisplayFor(model => model.Pet.IsAdopted)</span>
+                        </div>
+                    </div>
+
+                    <!-- Is Euthanized -->
+                    <div class="row mb-4">
+                        <div class="col-sm-4 text-right">
+                            <strong class="text-info">Euthanized:</strong>
+                        </div>
+                        <div class="col-sm-8">
+                            <span class="text-muted">@Html.DisplayFor(model => model.Pet.IsEuthanized)</span>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer text-center">
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Back to List", "List", null, new { @class = "btn btn-secondary" })
+
+                <!-- Action Buttons Section -->
+                <div class="card-footer text-center py-4">
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning mx-2 px-4" })
+                    @Html.ActionLink("Back to List", "List", null, new { @class = "btn btn-secondary mx-2 px-4" })
                 </div>
             </div>
         </div>
